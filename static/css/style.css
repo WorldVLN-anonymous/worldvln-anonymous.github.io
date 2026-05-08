@@ -303,55 +303,49 @@ a:hover {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at center, rgba(91, 194, 255, 0.18), transparent 36%),
-        linear-gradient(180deg, rgba(3, 8, 20, 0.12), rgba(3, 8, 20, 0.48));
+        radial-gradient(circle at center, rgba(91, 194, 255, 0.22), transparent 38%),
+        linear-gradient(180deg, rgba(3, 8, 20, 0.08), rgba(3, 8, 20, 0.34));
 }
 
-.hero-backdrop-video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.18);
-    filter: blur(42px) saturate(0.95) brightness(0.58);
-    opacity: 0.94;
-    transition: opacity 0.4s ease, transform 0.45s ease;
-}
-
-.hero-center-video {
+.hero-video-wall {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: min(100%, 28rem);
-    aspect-ratio: 9 / 16;
-    transform: translate(-50%, -44%);
-    opacity: 0.32;
-    border-radius: 34px;
+    inset: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2px;
+    opacity: 0.44;
+}
+
+.hero-wall-panel {
+    position: relative;
     overflow: hidden;
-    box-shadow: 0 0 80px rgba(74, 132, 255, 0.14);
-    mask-image: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.92) 18%, rgba(0, 0, 0, 0.92) 80%, transparent 100%);
-    transition: width 0.35s ease, aspect-ratio 0.35s ease, opacity 0.35s ease;
 }
 
-.hero-center-video.is-square {
-    width: min(100%, 19rem);
-    aspect-ratio: 1 / 1;
-}
-
-.hero-center-video::before {
+.hero-wall-panel::after {
     content: "";
     position: absolute;
     inset: 0;
-    z-index: 2;
     background:
-        linear-gradient(180deg, rgba(3, 8, 20, 0.52), rgba(3, 8, 20, 0.16) 32%, rgba(3, 8, 20, 0.16) 68%, rgba(3, 8, 20, 0.54)),
-        radial-gradient(circle at center, rgba(109, 180, 255, 0.14), transparent 58%);
+        linear-gradient(180deg, rgba(3, 8, 20, 0.28), rgba(3, 8, 20, 0.12) 35%, rgba(3, 8, 20, 0.3)),
+        radial-gradient(circle at center, rgba(109, 180, 255, 0.12), transparent 60%);
     pointer-events: none;
+}
+
+.hero-wall-video {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    filter: saturate(0.98) brightness(0.74) contrast(1.03);
+    transform: scale(1.04);
+    opacity: 0.96;
+    transition: opacity 0.4s ease, transform 0.45s ease;
 }
 
 .hero-overlay {
     background:
-        radial-gradient(circle at 50% 28%, rgba(96, 165, 250, 0.16), transparent 30%),
-        linear-gradient(180deg, rgba(3, 8, 20, 0.28) 0%, rgba(3, 8, 20, 0.42) 42%, rgba(3, 8, 20, 0.9) 100%);
+        radial-gradient(circle at 50% 28%, rgba(96, 165, 250, 0.14), transparent 32%),
+        linear-gradient(180deg, rgba(3, 8, 20, 0.2) 0%, rgba(3, 8, 20, 0.32) 42%, rgba(3, 8, 20, 0.84) 100%);
 }
 
 .hero-orb {
@@ -404,15 +398,14 @@ a:hover {
     position: relative;
     display: block;
     width: 100%;
-    min-height: 420px;
+    min-height: 360px;
 }
 
 .hero-badge,
 .hero-title,
 .hero-subtitle,
 .hero-context,
-.hero-links,
-.hero-metrics {
+.hero-links {
     animation: rise-in 0.9s both;
 }
 
@@ -484,7 +477,6 @@ a:hover {
 }
 
 .hero-link,
-.metric-card,
 .section-panel,
 .feature-card,
 .resource-card,
@@ -530,61 +522,6 @@ a:hover {
     border-color: rgba(126, 206, 255, 0.34);
 }
 
-.hero-feature-video {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: cover;
-    border-radius: 34px;
-    background: rgba(2, 6, 13, 0.94);
-    filter: saturate(0.96) brightness(0.82);
-    opacity: 0.94;
-    transition: opacity 0.35s ease, transform 0.35s ease;
-}
-
-.hero-metrics {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 18px;
-    width: min(100%, 1080px);
-    margin-top: 44px;
-    align-self: stretch;
-}
-
-.metric-card {
-    position: relative;
-    padding: 20px 18px 18px;
-    border: 1px solid rgba(140, 194, 255, 0.16);
-    border-radius: 22px;
-    background:
-        linear-gradient(180deg, rgba(16, 31, 51, 0.72), rgba(7, 16, 27, 0.82)),
-        rgba(8, 18, 32, 0.55);
-    backdrop-filter: blur(18px);
-    text-align: left;
-    overflow: hidden;
-    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
-}
-
-.metric-card::before {
-    content: "";
-    position: absolute;
-    inset: auto -18% -54% auto;
-    width: 140px;
-    height: 140px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(137, 213, 255, 0.16), transparent 68%);
-}
-
-.metric-card:hover {
-    transform: translateY(-5px);
-    border-color: rgba(137, 213, 255, 0.28);
-    box-shadow: 0 20px 44px rgba(0, 0, 0, 0.22);
-}
-
-.metric-kicker,
 .section-tag,
 .feature-label,
 .resource-kicker,
@@ -596,23 +533,6 @@ a:hover {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-}
-
-.metric-value {
-    color: var(--text);
-    font-family: var(--serif);
-    font-size: 1.35rem;
-    font-weight: 600;
-    line-height: 1.2;
-    margin-bottom: 8px;
-}
-
-.metric-card p {
-    position: relative;
-    z-index: 1;
-    margin: 0;
-    color: var(--text-soft);
-    font-size: 0.92rem;
 }
 
 .hero-scroll-cue {
@@ -990,12 +910,8 @@ a:hover {
         letter-spacing: 0.06em;
     }
 
-    .hero-metrics {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
     .hero-layout {
-        min-height: 380px;
+        min-height: 340px;
     }
 }
 
@@ -1016,7 +932,7 @@ a:hover {
     }
 
     .hero-layout {
-        min-height: 340px;
+        min-height: 300px;
     }
 
     .hero-copy {
@@ -1058,8 +974,8 @@ a:hover {
         min-height: 42px;
     }
 
-    .hero-metrics {
-        grid-template-columns: 1fr;
+    .hero-video-wall {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
     .section-panel {
@@ -1107,13 +1023,8 @@ a:hover {
         width: 100%;
     }
 
-    .hero-center-video {
-        width: min(100%, 21rem);
-        transform: translate(-50%, -40%);
-    }
-
-    .hero-center-video.is-square {
-        width: min(100%, 15rem);
+    .hero-layout {
+        min-height: 260px;
     }
 
     .section {
@@ -1124,7 +1035,6 @@ a:hover {
         margin-top: -28px;
     }
 
-    .metric-card,
     .feature-card,
     .resource-card,
     .video-card {

@@ -172,72 +172,35 @@ function playMutedVideo(video, playbackRate) {
 }
 
 function setupHeroShowcase() {
-    const backdropVideo = document.getElementById("heroBackdropVideo");
-    const featureVideo = document.getElementById("heroFeatureVideo");
-    const centerVideoWrap = document.getElementById("heroCenterVideoWrap");
+    const wallVideos = Array.from(document.querySelectorAll(".hero-wall-video"));
 
-    if (!backdropVideo || !featureVideo || !centerVideoWrap || !heroClips.length) {
+    if (!wallVideos.length || !heroClips.length) {
         return;
     }
 
-    let currentIndex = 0;
-    let isSwitching = false;
-
-    const applyClipShape = (shape) => {
-        centerVideoWrap.classList.toggle("is-square", shape === "square");
-        centerVideoWrap.classList.toggle("is-portrait", shape !== "square");
+    const assignClipToVideo = (video, clip) => {
+        video.pause();
+        video.src = clip.src;
+        video.load();
+        playMutedVideo(video, 0.92);
     };
 
-    const loadClip = (index) => {
-        const clip = heroClips[index];
-        let readyCount = 0;
+    wallVideos.forEach((video, index) => {
+        let clipIndex = index % heroClips.length;
 
-        isSwitching = true;
-        applyClipShape(clip.shape);
-        backdropVideo.style.opacity = "0";
-        featureVideo.style.opacity = "0";
-
-        const handleReady = () => {
-            readyCount += 1;
-            if (readyCount < 2) {
-                return;
-            }
-
-            backdropVideo.currentTime = 0;
-            featureVideo.currentTime = 0;
-            playMutedVideo(backdropVideo, 0.9);
-            playMutedVideo(featureVideo, 1);
-            backdropVideo.style.opacity = "0.86";
-            featureVideo.style.opacity = "0.94";
-            isSwitching = false;
+        const playCurrentClip = () => {
+            const clip = heroClips[clipIndex];
+            assignClipToVideo(video, clip);
         };
 
-        backdropVideo.addEventListener("canplay", handleReady, { once: true });
-        featureVideo.addEventListener("canplay", handleReady, { once: true });
+        video.loop = false;
+        video.addEventListener("ended", () => {
+            clipIndex = (clipIndex + wallVideos.length) % heroClips.length;
+            playCurrentClip();
+        });
 
-        backdropVideo.pause();
-        featureVideo.pause();
-        backdropVideo.src = clip.src;
-        featureVideo.src = clip.src;
-        backdropVideo.load();
-        featureVideo.load();
-
-        // Try to start playback immediately even before both videos report ready.
-        playMutedVideo(backdropVideo, 0.9);
-        playMutedVideo(featureVideo, 1);
-    };
-
-    const nextClip = () => {
-        if (isSwitching) {
-            return;
-        }
-
-        currentIndex = (currentIndex + 1) % heroClips.length;
-        loadClip(currentIndex);
-    };
-
-    featureVideo.addEventListener("ended", nextClip);
-    loadClip(currentIndex);
+        playCurrentClip();
+    });
 }
 
 function setupRevealAnimations() {
