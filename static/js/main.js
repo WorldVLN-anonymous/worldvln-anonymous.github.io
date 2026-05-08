@@ -159,6 +159,11 @@ function setupSmoothScroll() {
 
 function playMutedVideo(video, playbackRate) {
     video.muted = true;
+    video.autoplay = true;
+    video.playsInline = true;
+    video.setAttribute("muted", "");
+    video.setAttribute("autoplay", "");
+    video.setAttribute("playsinline", "");
     video.playbackRate = playbackRate;
     const playPromise = video.play();
     if (playPromise && typeof playPromise.catch === "function") {
@@ -169,37 +174,28 @@ function playMutedVideo(video, playbackRate) {
 function setupHeroShowcase() {
     const backdropVideo = document.getElementById("heroBackdropVideo");
     const featureVideo = document.getElementById("heroFeatureVideo");
-    const previewFrame = document.getElementById("heroPreviewFrame");
-    const clipCounter = document.getElementById("heroClipCounter");
-    const clipCaption = document.getElementById("heroClipCaption");
+    const centerVideoWrap = document.getElementById("heroCenterVideoWrap");
 
-    if (!backdropVideo || !featureVideo || !previewFrame || !heroClips.length) {
+    if (!backdropVideo || !featureVideo || !centerVideoWrap || !heroClips.length) {
         return;
     }
 
     let currentIndex = 0;
     let isSwitching = false;
 
-    const formatCounter = (value) => String(value).padStart(2, "0");
-
     const applyClipShape = (shape) => {
-        previewFrame.classList.toggle("is-square", shape === "square");
-        previewFrame.classList.toggle("is-portrait", shape !== "square");
+        centerVideoWrap.classList.toggle("is-square", shape === "square");
+        centerVideoWrap.classList.toggle("is-portrait", shape !== "square");
     };
 
     const loadClip = (index) => {
         const clip = heroClips[index];
-        const total = heroClips.length;
         let readyCount = 0;
 
         isSwitching = true;
         applyClipShape(clip.shape);
         backdropVideo.style.opacity = "0";
         featureVideo.style.opacity = "0";
-        clipCounter.textContent = `${formatCounter(index + 1)} / ${formatCounter(total)}`;
-        if (clipCaption) {
-            clipCaption.textContent = clip.caption;
-        }
 
         const handleReady = () => {
             readyCount += 1;
@@ -212,12 +208,12 @@ function setupHeroShowcase() {
             playMutedVideo(backdropVideo, 0.9);
             playMutedVideo(featureVideo, 1);
             backdropVideo.style.opacity = "0.86";
-            featureVideo.style.opacity = "1";
+            featureVideo.style.opacity = "0.94";
             isSwitching = false;
         };
 
-        backdropVideo.addEventListener("loadeddata", handleReady, { once: true });
-        featureVideo.addEventListener("loadeddata", handleReady, { once: true });
+        backdropVideo.addEventListener("canplay", handleReady, { once: true });
+        featureVideo.addEventListener("canplay", handleReady, { once: true });
 
         backdropVideo.pause();
         featureVideo.pause();
@@ -225,6 +221,10 @@ function setupHeroShowcase() {
         featureVideo.src = clip.src;
         backdropVideo.load();
         featureVideo.load();
+
+        // Try to start playback immediately even before both videos report ready.
+        playMutedVideo(backdropVideo, 0.9);
+        playMutedVideo(featureVideo, 1);
     };
 
     const nextClip = () => {

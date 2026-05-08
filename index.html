@@ -48,7 +48,10 @@
         <div class="hero-grid" aria-hidden="true"></div>
 
         <div class="hero-stage-media" aria-hidden="true">
-            <video id="heroBackdropVideo" class="hero-backdrop-video" muted playsinline preload="auto"></video>
+            <video id="heroBackdropVideo" class="hero-backdrop-video" autoplay muted playsinline preload="auto"></video>
+            <div class="hero-center-video is-portrait" id="heroCenterVideoWrap">
+                <video id="heroFeatureVideo" class="hero-feature-video" autoplay muted playsinline preload="auto"></video>
+            </div>
         </div>
 
         <div class="hero-overlay" aria-hidden="true"></div>
@@ -72,20 +75,6 @@
                         <a href="#overview" class="hero-link">Project Overview</a>
                         <a href="https://github.com/WorldVLN-anonymous/worldvln-anonymous.github.io" class="hero-link" target="_blank" rel="noopener noreferrer">Anonymous GitHub</a>
                     </div>
-                </div>
-
-                <div class="hero-preview-shell" data-reveal data-delay="120">
-                    <div class="hero-preview-frame is-portrait" id="heroPreviewFrame">
-                        <div class="hero-preview-glow" aria-hidden="true"></div>
-                        <video id="heroFeatureVideo" class="hero-feature-video" muted playsinline preload="auto"></video>
-                    </div>
-                    <div class="hero-preview-meta">
-                        <span class="hero-preview-pill">Balanced MP4 Background</span>
-                        <span class="hero-preview-counter" id="heroClipCounter">01 / 10</span>
-                    </div>
-                    <p class="hero-preview-caption" id="heroClipCaption">
-                        Alternating portrait and square clips selected evenly from two anonymous source folders.
-                    </p>
                 </div>
             </div>
 
