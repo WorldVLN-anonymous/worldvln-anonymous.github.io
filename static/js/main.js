@@ -56,54 +56,34 @@ const testVideos = [
 
 const heroClips = [
     {
-        src: "static/hero/balanced-portrait-01.mp4",
+        src: "static/background-videos/portrait-source-01.mp4",
         shape: "portrait",
-        caption: "Balanced source pool clip 01 using the original portrait MP4 with a blurred extension background."
+        caption: "Portrait source clip 01 selected from the first anonymous video route and shown with a blurred extension background."
     },
     {
-        src: "static/hero/balanced-square-01.mp4",
+        src: "static/background-videos/square-source-01.mp4",
         shape: "square",
-        caption: "Balanced source pool clip 02 using the original square MP4 with a blurred extension background."
+        caption: "Square source clip 01 selected from the second anonymous video route and shown with a blurred extension background."
     },
     {
-        src: "static/hero/balanced-portrait-02.mp4",
+        src: "static/background-videos/portrait-source-02.mp4",
         shape: "portrait",
-        caption: "Balanced source pool clip 03 using the original portrait MP4 with a blurred extension background."
+        caption: "Portrait source clip 02 selected from the first anonymous video route and shown with a blurred extension background."
     },
     {
-        src: "static/hero/balanced-square-02.mp4",
+        src: "static/background-videos/square-source-02.mp4",
         shape: "square",
-        caption: "Balanced source pool clip 04 using the original square MP4 with a blurred extension background."
+        caption: "Square source clip 02 selected from the second anonymous video route and shown with a blurred extension background."
     },
     {
-        src: "static/hero/balanced-portrait-03.mp4",
+        src: "static/background-videos/portrait-source-03.mp4",
         shape: "portrait",
-        caption: "Balanced source pool clip 05 using the original portrait MP4 with a blurred extension background."
+        caption: "Portrait source clip 03 selected from the first anonymous video route and shown with a blurred extension background."
     },
     {
-        src: "static/hero/balanced-square-03.mp4",
+        src: "static/background-videos/square-source-03.mp4",
         shape: "square",
-        caption: "Balanced source pool clip 06 using the original square MP4 with a blurred extension background."
-    },
-    {
-        src: "static/hero/balanced-portrait-04.mp4",
-        shape: "portrait",
-        caption: "Balanced source pool clip 07 using the original portrait MP4 with a blurred extension background."
-    },
-    {
-        src: "static/hero/balanced-square-04.mp4",
-        shape: "square",
-        caption: "Balanced source pool clip 08 using the original square MP4 with a blurred extension background."
-    },
-    {
-        src: "static/hero/balanced-portrait-05.mp4",
-        shape: "portrait",
-        caption: "Balanced source pool clip 09 using the original portrait MP4 with a blurred extension background."
-    },
-    {
-        src: "static/hero/balanced-square-05.mp4",
-        shape: "square",
-        caption: "Balanced source pool clip 10 using the original square MP4 with a blurred extension background."
+        caption: "Square source clip 03 selected from the second anonymous video route and shown with a blurred extension background."
     }
 ];
 
