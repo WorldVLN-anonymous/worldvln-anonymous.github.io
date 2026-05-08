@@ -816,6 +816,11 @@ a:hover {
     background: #02060d;
 }
 
+.video-card .video-kicker {
+    margin-top: 12px;
+    margin-bottom: 0;
+}
+
 [data-reveal] {
     opacity: 0;
     transform: translateY(26px);
@@ -840,6 +845,10 @@ a:hover {
     font-size: 0.76rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+}
+
+.footer .container-narrow p + p {
+    margin-top: 10px;
 }
 
 @keyframes rise-in {

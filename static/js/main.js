@@ -56,6 +56,7 @@ function createVideoCard(item, index) {
                 Your browser does not support the video tag.
             </video>
         </div>
+        <div class="video-kicker">Video ${String(index + 1).padStart(2, "0")}</div>
     `;
     return card;
 }
