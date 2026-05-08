@@ -32,7 +32,7 @@
                 <span></span><span></span><span></span>
             </button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#overview">Overview</a></li>
+                <li><a href="#overview">Abstract</a></li>
                 <li><a href="#highlights">Highlights</a></li>
                 <li><a href="#videos">Videos</a></li>
                 <li><a href="#resources">Resources</a></li>
@@ -79,6 +79,16 @@
                         <source src="static/background-videos/square-source-03-h264.mp4" type="video/mp4">
                     </video>
                 </div>
+                <div class="hero-wall-panel">
+                    <video class="hero-wall-video" autoplay muted loop playsinline preload="auto">
+                        <source src="static/background-videos/reference-h264.mp4" type="video/mp4">
+                    </video>
+                </div>
+                <div class="hero-wall-panel">
+                    <video class="hero-wall-video" autoplay muted loop playsinline preload="auto">
+                        <source src="static/background-videos/video2-h264.mp4" type="video/mp4">
+                    </video>
+                </div>
             </div>
         </div>
 
@@ -87,20 +97,14 @@
         <div class="container hero-shell">
             <div class="hero-layout">
                 <div class="hero-copy" data-reveal>
-                    <p class="hero-badge">Anonymous Submission Companion Page</p>
                     <h1 class="hero-title">WorldVLN</h1>
-                    <h2 class="hero-subtitle">
-                        A richer anonymous project page with dynamic background layers,
-                        cinematic motion, and review-friendly supplementary material.
-                    </h2>
                     <p class="hero-context">
-                        This review version intentionally omits author names, affiliations,
-                        institutional logos, acknowledgements, and any direct identity-bearing information.
-                        Textual content can be updated later without changing the visual framework.
+                        The first autoregressive world action model for drone VLN, capable of operating
+                        across both indoor and outdoor environments and deployable on real drones.
                     </p>
                     <div class="hero-links">
                         <a href="#videos" class="hero-link hero-link-primary">View Videos</a>
-                        <a href="#overview" class="hero-link">Project Overview</a>
+                        <a href="#overview" class="hero-link">Abstract</a>
                         <a href="https://github.com/WorldVLN-anonymous/worldvln-anonymous.github.io" class="hero-link" target="_blank" rel="noopener noreferrer">Anonymous GitHub</a>
                     </div>
                 </div>
@@ -117,24 +121,36 @@
         <section class="section" id="overview">
             <div class="container container-narrow section-panel" data-reveal>
                 <div class="section-head">
-                    <p class="section-tag">Overview</p>
-                    <h2 class="section-title">Project Overview</h2>
+                    <p class="section-tag">Abstract</p>
+                    <h2 class="section-title">Abstract</h2>
                 </div>
                 <div class="text-block">
                     <p>
-                        <strong>WorldVLN</strong> is currently presented as an anonymous research project page for review.
-                        The layout is intentionally structured to support later content revision while already providing a
-                        polished visual identity and a coherent reviewer-facing narrative.
+                        Aerial vision-language navigation requires agents to follow natural-language instructions through
+                        closed-loop perception and action in 3D environments. We argue that aerial VLN can be formulated
+                        as a prediction-driven world-action problem: the agent should anticipate latent world evolution and
+                        act according to the predicted consequences.
                     </p>
                     <p>
-                        This version prioritizes three goals: keep the page anonymous, make supplementary media easy to inspect,
-                        and establish a more memorable presentation through dynamic background layers, atmospheric motion, and
-                        high-contrast visual hierarchy.
+                        To this end, we propose WorldVLN, the first autoregressive world action model for aerial VLN.
+                        Unlike full-sequence video-generation world models that generate an entire visual clip, WorldVLN
+                        adapts a latent autoregressive video backbone to predict short-horizon world-state transitions and
+                        directly decodes them into executable waypoint actions. After each action segment is executed, newly
+                        received observations are encoded back into the autoregressive context, enabling closed-loop
+                        world-action prediction.
                     </p>
-                    <div class="callout">
-                        Anonymous review notice: author names, affiliations, institutional marks, private contact details,
-                        and any content that can weaken anonymity are intentionally omitted in this stage.
-                    </div>
+                    <p>
+                        We further introduce a two-stage training framework that first grounds the video prior in
+                        instruction-conditioned navigation dynamics and then develops Action-aware GRPO, the first
+                        reinforcement learning method tailored to autoregressive WAMs, to optimize waypoint decisions
+                        through their downstream rollout consequences.
+                    </p>
+                    <p>
+                        On public outdoor and indoor benchmarks, WorldVLN consistently outperforms existing
+                        Vision-Language-Action baselines with 12%+ success-rate gains and larger advantages on challenging
+                        cases. It further transfers zero-shot to real drone deployment, suggesting that the proposed
+                        WorldVLN offers a promising route for spatial action tasks.
+                    </p>
                 </div>
             </div>
         </section>
@@ -150,18 +166,18 @@
                 <div class="feature-grid">
                     <article class="feature-card" data-reveal data-delay="0">
                         <div class="feature-label">01</div>
-                        <h3>Animated hero atmosphere</h3>
-                        <p>Layered video mosaic, floating light orbs, and moving grid textures create a more vivid first impression without exposing identity.</p>
+                        <h3>Autoregressive WAM For Aerial VLN</h3>
+                        <p>We propose the first autoregressive WAM for aerial VLN with closed-loop world-action prediction.</p>
                     </article>
                     <article class="feature-card" data-reveal data-delay="80">
                         <div class="feature-label">02</div>
-                        <h3>Reviewer-friendly scanning</h3>
-                        <p>The structure remains a simple single page so reviewers can quickly move between overview, highlights, demos, and supporting links.</p>
+                        <h3>Action-aware GRPO</h3>
+                        <p>We introduce Action-aware GRPO to align autoregressive WAMs with navigation outcomes.</p>
                     </article>
                     <article class="feature-card" data-reveal data-delay="160">
                         <div class="feature-label">03</div>
-                        <h3>Placeholder-ready content</h3>
-                        <p>Most text is intentionally generic so you can later replace it with final paper-aligned wording without redesigning the site.</p>
+                        <h3>SOTA And Real-world Transfer</h3>
+                        <p>WorldVLN achieves SOTA-level performance on indoor and outdoor benchmarks, with zero-shot transfer to real-world drones.</p>
                     </article>
                 </div>
             </div>
@@ -173,25 +189,19 @@
             <div class="container container-wide section-panel" data-reveal>
                 <div class="section-head">
                     <p class="section-tag">Videos</p>
-                    <h2 class="section-title">Supplementary Videos</h2>
+                    <h2 class="section-title">Example Demonstrate</h2>
                 </div>
-                <p class="section-intro">
-                    The qualitative videos below are embedded directly in the page. They are currently grouped into outdoor
-                    scenarios and test scenes, and the surrounding text can be revised later to match your final naming scheme.
-                </p>
 
                 <div class="video-group">
                     <div class="group-header" data-reveal>
-                        <h3>Outdoor Scenarios</h3>
-                        <p>Representative samples currently grouped under an outdoor category.</p>
+                        <h3>Outdoor Case</h3>
                     </div>
                     <div class="video-grid" id="outdoorVideos"></div>
                 </div>
 
                 <div class="video-group">
                     <div class="group-header" data-reveal>
-                        <h3>Test Scenes</h3>
-                        <p>Additional examples that can later be renamed, regrouped, or expanded.</p>
+                        <h3>Indoor Case</h3>
                     </div>
                     <div class="video-grid" id="testVideos"></div>
                 </div>
@@ -207,20 +217,15 @@
                     <h2 class="section-title">Anonymous Resources</h2>
                 </div>
                 <div class="resource-grid">
-                    <a class="resource-card" href="https://github.com/WorldVLN-anonymous/worldvln-anonymous.github.io" target="_blank" rel="noopener noreferrer" data-reveal>
+                    <div class="resource-card" data-reveal>
                         <span class="resource-kicker">Repository</span>
-                        <h3>Anonymous GitHub Pages Repo</h3>
-                        <p>The review-time website is hosted in the anonymous public repository and can be updated incrementally.</p>
-                    </a>
-                    <div class="resource-card" data-reveal data-delay="80">
-                        <span class="resource-kicker">Deployment</span>
-                        <h3>Static And Lightweight</h3>
-                        <p>The page stays lightweight enough for GitHub Pages while still supporting richer visual effects and embedded demos.</p>
+                        <h3>Codebase</h3>
+                        <p>Coming soon</p>
                     </div>
-                    <div class="resource-card" data-reveal data-delay="160">
-                        <span class="resource-kicker">Revision</span>
-                        <h3>Ready For Final Content</h3>
-                        <p>Section titles, buttons, summaries, and supporting descriptions can all be revised later without changing the overall style system.</p>
+                    <div class="resource-card" data-reveal data-delay="80">
+                        <span class="resource-kicker">Weights</span>
+                        <h3>Weights</h3>
+                        <p>Coming soon</p>
                     </div>
                 </div>
             </div>
