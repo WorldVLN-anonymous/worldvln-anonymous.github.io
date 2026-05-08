@@ -278,7 +278,7 @@ a:hover {
 
 .hero-grid,
 .hero-overlay,
-.hero-video-mosaic {
+.hero-stage-media {
     position: absolute;
     inset: 0;
 }
@@ -293,27 +293,28 @@ a:hover {
     animation: grid-shift 30s linear infinite;
 }
 
-.hero-video-mosaic {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2px;
-    opacity: 0.18;
+.hero-stage-media {
+    overflow: hidden;
     pointer-events: none;
 }
 
-.hero-video-mosaic::after {
+.hero-stage-media::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(3, 8, 20, 0.28), rgba(3, 8, 20, 0.56));
+    background:
+        radial-gradient(circle at center, rgba(91, 194, 255, 0.12), transparent 34%),
+        linear-gradient(180deg, rgba(3, 8, 20, 0.18), rgba(3, 8, 20, 0.56));
 }
 
-.hero-bg-video {
+.hero-backdrop-video {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: scale(1.05);
-    filter: saturate(0.92) contrast(1.08) brightness(0.72);
+    transform: scale(1.22);
+    filter: blur(56px) saturate(0.88) brightness(0.48);
+    opacity: 0.86;
+    transition: opacity 0.4s ease, transform 0.45s ease;
 }
 
 .hero-overlay {
@@ -357,14 +358,21 @@ a:hover {
     z-index: 1;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
     min-height: calc(100vh - 138px);
-    text-align: center;
 }
 
 .hero-copy {
-    max-width: 880px;
+    max-width: 700px;
+    text-align: left;
+}
+
+.hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(340px, 430px);
+    align-items: center;
+    gap: 48px;
+    width: 100%;
 }
 
 .hero-badge,
@@ -438,12 +446,13 @@ a:hover {
 
 .hero-links {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 14px;
     flex-wrap: wrap;
 }
 
 .hero-link,
+.hero-preview-frame,
 .metric-card,
 .section-panel,
 .feature-card,
@@ -490,12 +499,108 @@ a:hover {
     border-color: rgba(126, 206, 255, 0.34);
 }
 
+.hero-preview-shell {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+.hero-preview-frame {
+    position: relative;
+    width: min(100%, 420px);
+    aspect-ratio: 9 / 16;
+    padding: 14px;
+    border: 1px solid rgba(140, 194, 255, 0.22);
+    border-radius: 34px;
+    background:
+        linear-gradient(180deg, rgba(15, 29, 49, 0.86), rgba(8, 15, 28, 0.94)),
+        rgba(8, 18, 32, 0.84);
+    overflow: hidden;
+    backdrop-filter: blur(18px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+    transition: width 0.35s ease, aspect-ratio 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+}
+
+.hero-preview-frame.is-square {
+    width: min(100%, 340px);
+    aspect-ratio: 1 / 1;
+}
+
+.hero-preview-frame:hover {
+    transform: translateY(-4px);
+    border-color: rgba(137, 213, 255, 0.34);
+}
+
+.hero-preview-glow {
+    position: absolute;
+    inset: auto -12% -25% auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(137, 213, 255, 0.18), transparent 68%);
+    pointer-events: none;
+}
+
+.hero-feature-video {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    border-radius: 24px;
+    background: rgba(2, 6, 13, 0.94);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.22);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.hero-preview-meta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.hero-preview-pill,
+.hero-preview-counter {
+    display: inline-flex;
+    align-items: center;
+    min-height: 34px;
+    padding: 0 12px;
+    border: 1px solid rgba(137, 213, 255, 0.18);
+    border-radius: 999px;
+    background: rgba(9, 19, 34, 0.7);
+    color: var(--text-soft);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    backdrop-filter: blur(12px);
+}
+
+.hero-preview-pill {
+    color: var(--accent);
+}
+
+.hero-preview-caption {
+    margin: 0;
+    max-width: 360px;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.92rem;
+    line-height: 1.7;
+}
+
 .hero-metrics {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 18px;
     width: min(100%, 1080px);
-    margin-top: 54px;
+    margin-top: 44px;
+    align-self: stretch;
 }
 
 .metric-card {
@@ -937,6 +1042,11 @@ a:hover {
     .hero-metrics {
         grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+
+    .hero-layout {
+        grid-template-columns: minmax(0, 1fr) minmax(320px, 390px);
+        gap: 32px;
+    }
 }
 
 @media (max-width: 900px) {
@@ -953,6 +1063,24 @@ a:hover {
 
     .hero-shell {
         min-height: auto;
+    }
+
+    .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .hero-copy {
+        max-width: none;
+        text-align: center;
+    }
+
+    .hero-links {
+        justify-content: center;
+    }
+
+    .hero-preview-shell {
+        order: 2;
     }
 }
 
@@ -984,11 +1112,6 @@ a:hover {
         width: 100%;
         justify-content: center;
         min-height: 42px;
-    }
-
-    .hero-video-mosaic {
-        grid-template-columns: 1fr 1fr;
-        opacity: 0.15;
     }
 
     .hero-metrics {
@@ -1038,6 +1161,11 @@ a:hover {
 
     .hero-link {
         width: 100%;
+    }
+
+    .hero-preview-frame,
+    .hero-preview-frame.is-square {
+        width: min(100%, 320px);
     }
 
     .section {

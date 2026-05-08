@@ -54,6 +54,59 @@ const testVideos = [
     }
 ];
 
+const heroClips = [
+    {
+        src: "static/hero/balanced-portrait-01.mp4",
+        shape: "portrait",
+        caption: "Balanced source pool clip 01 using the original portrait MP4 with a blurred extension background."
+    },
+    {
+        src: "static/hero/balanced-square-01.mp4",
+        shape: "square",
+        caption: "Balanced source pool clip 02 using the original square MP4 with a blurred extension background."
+    },
+    {
+        src: "static/hero/balanced-portrait-02.mp4",
+        shape: "portrait",
+        caption: "Balanced source pool clip 03 using the original portrait MP4 with a blurred extension background."
+    },
+    {
+        src: "static/hero/balanced-square-02.mp4",
+        shape: "square",
+        caption: "Balanced source pool clip 04 using the original square MP4 with a blurred extension background."
+    },
+    {
+        src: "static/hero/balanced-portrait-03.mp4",
+        shape: "portrait",
+        caption: "Balanced source pool clip 05 using the original portrait MP4 with a blurred extension background."
+    },
+    {
+        src: "static/hero/balanced-square-03.mp4",
+        shape: "square",
+        caption: "Balanced source pool clip 06 using the original square MP4 with a blurred extension background."
+    },
+    {
+        src: "static/hero/balanced-portrait-04.mp4",
+        shape: "portrait",
+        caption: "Balanced source pool clip 07 using the original portrait MP4 with a blurred extension background."
+    },
+    {
+        src: "static/hero/balanced-square-04.mp4",
+        shape: "square",
+        caption: "Balanced source pool clip 08 using the original square MP4 with a blurred extension background."
+    },
+    {
+        src: "static/hero/balanced-portrait-05.mp4",
+        shape: "portrait",
+        caption: "Balanced source pool clip 09 using the original portrait MP4 with a blurred extension background."
+    },
+    {
+        src: "static/hero/balanced-square-05.mp4",
+        shape: "square",
+        caption: "Balanced source pool clip 10 using the original square MP4 with a blurred extension background."
+    }
+];
+
 function createVideoCard(item, index) {
     const card = document.createElement("article");
     card.className = "video-card";
@@ -124,25 +177,87 @@ function setupSmoothScroll() {
     });
 }
 
-function setupHeroBackgroundVideos() {
-    document.querySelectorAll(".hero-bg-video").forEach((video) => {
-        video.muted = true;
-        const playbackRate = Number(video.dataset.playback || "0.75");
+function playMutedVideo(video, playbackRate) {
+    video.muted = true;
+    video.playbackRate = playbackRate;
+    const playPromise = video.play();
+    if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {});
+    }
+}
 
-        const tryPlay = () => {
-            video.playbackRate = playbackRate;
-            const playPromise = video.play();
-            if (playPromise && typeof playPromise.catch === "function") {
-                playPromise.catch(() => {});
+function setupHeroShowcase() {
+    const backdropVideo = document.getElementById("heroBackdropVideo");
+    const featureVideo = document.getElementById("heroFeatureVideo");
+    const previewFrame = document.getElementById("heroPreviewFrame");
+    const clipCounter = document.getElementById("heroClipCounter");
+    const clipCaption = document.getElementById("heroClipCaption");
+
+    if (!backdropVideo || !featureVideo || !previewFrame || !heroClips.length) {
+        return;
+    }
+
+    let currentIndex = 0;
+    let isSwitching = false;
+
+    const formatCounter = (value) => String(value).padStart(2, "0");
+
+    const applyClipShape = (shape) => {
+        previewFrame.classList.toggle("is-square", shape === "square");
+        previewFrame.classList.toggle("is-portrait", shape !== "square");
+    };
+
+    const loadClip = (index) => {
+        const clip = heroClips[index];
+        const total = heroClips.length;
+        let readyCount = 0;
+
+        isSwitching = true;
+        applyClipShape(clip.shape);
+        backdropVideo.style.opacity = "0";
+        featureVideo.style.opacity = "0";
+        clipCounter.textContent = `${formatCounter(index + 1)} / ${formatCounter(total)}`;
+        if (clipCaption) {
+            clipCaption.textContent = clip.caption;
+        }
+
+        const handleReady = () => {
+            readyCount += 1;
+            if (readyCount < 2) {
+                return;
             }
+
+            backdropVideo.currentTime = 0;
+            featureVideo.currentTime = 0;
+            playMutedVideo(backdropVideo, 0.9);
+            playMutedVideo(featureVideo, 1);
+            backdropVideo.style.opacity = "0.86";
+            featureVideo.style.opacity = "1";
+            isSwitching = false;
         };
 
-        if (video.readyState >= 2) {
-            tryPlay();
-        } else {
-            video.addEventListener("loadeddata", tryPlay, { once: true });
+        backdropVideo.addEventListener("loadeddata", handleReady, { once: true });
+        featureVideo.addEventListener("loadeddata", handleReady, { once: true });
+
+        backdropVideo.pause();
+        featureVideo.pause();
+        backdropVideo.src = clip.src;
+        featureVideo.src = clip.src;
+        backdropVideo.load();
+        featureVideo.load();
+    };
+
+    const nextClip = () => {
+        if (isSwitching) {
+            return;
         }
-    });
+
+        currentIndex = (currentIndex + 1) % heroClips.length;
+        loadClip(currentIndex);
+    };
+
+    featureVideo.addEventListener("ended", nextClip);
+    loadClip(currentIndex);
 }
 
 function setupRevealAnimations() {
@@ -185,5 +300,5 @@ populateVideos("outdoorVideos", outdoorVideos);
 populateVideos("testVideos", testVideos);
 setupNavbar();
 setupSmoothScroll();
-setupHeroBackgroundVideos();
+setupHeroShowcase();
 setupRevealAnimations();

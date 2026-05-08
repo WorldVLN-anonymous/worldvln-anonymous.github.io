@@ -47,40 +47,45 @@
         <div class="hero-orb hero-orb-c" aria-hidden="true"></div>
         <div class="hero-grid" aria-hidden="true"></div>
 
-        <div class="hero-video-mosaic" aria-hidden="true">
-            <video class="hero-bg-video" muted loop playsinline preload="metadata" data-playback="0.75">
-                <source src="static/videos/outdoor1.mp4" type="video/mp4">
-            </video>
-            <video class="hero-bg-video" muted loop playsinline preload="metadata" data-playback="0.7">
-                <source src="static/videos/outdoor2.mp4" type="video/mp4">
-            </video>
-            <video class="hero-bg-video" muted loop playsinline preload="metadata" data-playback="0.8">
-                <source src="static/videos/test1.mp4" type="video/mp4">
-            </video>
-            <video class="hero-bg-video" muted loop playsinline preload="metadata" data-playback="0.72">
-                <source src="static/videos/test2.mp4" type="video/mp4">
-            </video>
+        <div class="hero-stage-media" aria-hidden="true">
+            <video id="heroBackdropVideo" class="hero-backdrop-video" muted playsinline preload="auto"></video>
         </div>
 
         <div class="hero-overlay" aria-hidden="true"></div>
 
         <div class="container hero-shell">
-            <div class="hero-copy" data-reveal>
-                <p class="hero-badge">Anonymous Submission Companion Page</p>
-                <h1 class="hero-title">WorldVLN</h1>
-                <h2 class="hero-subtitle">
-                    A richer anonymous project page with dynamic background layers,
-                    cinematic motion, and review-friendly supplementary material.
-                </h2>
-                <p class="hero-context">
-                    This review version intentionally omits author names, affiliations,
-                    institutional logos, acknowledgements, and any direct identity-bearing information.
-                    Textual content can be updated later without changing the visual framework.
-                </p>
-                <div class="hero-links">
-                    <a href="#videos" class="hero-link hero-link-primary">View Videos</a>
-                    <a href="#overview" class="hero-link">Project Overview</a>
-                    <a href="https://github.com/WorldVLN-anonymous/worldvln-anonymous.github.io" class="hero-link" target="_blank" rel="noopener noreferrer">Anonymous GitHub</a>
+            <div class="hero-layout">
+                <div class="hero-copy" data-reveal>
+                    <p class="hero-badge">Anonymous Submission Companion Page</p>
+                    <h1 class="hero-title">WorldVLN</h1>
+                    <h2 class="hero-subtitle">
+                        A richer anonymous project page with dynamic background layers,
+                        cinematic motion, and review-friendly supplementary material.
+                    </h2>
+                    <p class="hero-context">
+                        This review version intentionally omits author names, affiliations,
+                        institutional logos, acknowledgements, and any direct identity-bearing information.
+                        Textual content can be updated later without changing the visual framework.
+                    </p>
+                    <div class="hero-links">
+                        <a href="#videos" class="hero-link hero-link-primary">View Videos</a>
+                        <a href="#overview" class="hero-link">Project Overview</a>
+                        <a href="https://github.com/WorldVLN-anonymous/worldvln-anonymous.github.io" class="hero-link" target="_blank" rel="noopener noreferrer">Anonymous GitHub</a>
+                    </div>
+                </div>
+
+                <div class="hero-preview-shell" data-reveal data-delay="120">
+                    <div class="hero-preview-frame is-portrait" id="heroPreviewFrame">
+                        <div class="hero-preview-glow" aria-hidden="true"></div>
+                        <video id="heroFeatureVideo" class="hero-feature-video" muted playsinline preload="auto"></video>
+                    </div>
+                    <div class="hero-preview-meta">
+                        <span class="hero-preview-pill">Balanced MP4 Background</span>
+                        <span class="hero-preview-counter" id="heroClipCounter">01 / 10</span>
+                    </div>
+                    <p class="hero-preview-caption" id="heroClipCaption">
+                        Alternating portrait and square clips selected evenly from two anonymous source folders.
+                    </p>
                 </div>
             </div>
 
