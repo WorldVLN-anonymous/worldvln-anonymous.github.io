@@ -594,7 +594,7 @@ a:hover {
 }
 
 #overview {
-    margin-top: -16px;
+    margin-top: 24px;
     padding-top: 0;
 }
 
@@ -1057,7 +1057,7 @@ a:hover {
     }
 
     #overview {
-        margin-top: -8px;
+        margin-top: 12px;
     }
 
     .feature-card,
