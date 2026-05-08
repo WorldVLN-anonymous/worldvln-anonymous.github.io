@@ -54,39 +54,6 @@ const testVideos = [
     }
 ];
 
-const heroClips = [
-    {
-        src: "static/background-videos/portrait-source-01.mp4",
-        shape: "portrait",
-        caption: "Portrait source clip 01 selected from the first anonymous video route and shown with a blurred extension background."
-    },
-    {
-        src: "static/background-videos/square-source-01.mp4",
-        shape: "square",
-        caption: "Square source clip 01 selected from the second anonymous video route and shown with a blurred extension background."
-    },
-    {
-        src: "static/background-videos/portrait-source-02.mp4",
-        shape: "portrait",
-        caption: "Portrait source clip 02 selected from the first anonymous video route and shown with a blurred extension background."
-    },
-    {
-        src: "static/background-videos/square-source-02.mp4",
-        shape: "square",
-        caption: "Square source clip 02 selected from the second anonymous video route and shown with a blurred extension background."
-    },
-    {
-        src: "static/background-videos/portrait-source-03.mp4",
-        shape: "portrait",
-        caption: "Portrait source clip 03 selected from the first anonymous video route and shown with a blurred extension background."
-    },
-    {
-        src: "static/background-videos/square-source-03.mp4",
-        shape: "square",
-        caption: "Square source clip 03 selected from the second anonymous video route and shown with a blurred extension background."
-    }
-];
-
 function createVideoCard(item, index) {
     const card = document.createElement("article");
     card.className = "video-card";
@@ -174,32 +141,25 @@ function playMutedVideo(video, playbackRate) {
 function setupHeroShowcase() {
     const wallVideos = Array.from(document.querySelectorAll(".hero-wall-video"));
 
-    if (!wallVideos.length || !heroClips.length) {
+    if (!wallVideos.length) {
         return;
     }
 
-    const assignClipToVideo = (video, clip) => {
-        video.pause();
-        video.src = clip.src;
-        video.load();
-        playMutedVideo(video, 0.92);
-    };
-
     wallVideos.forEach((video, index) => {
-        let clipIndex = index % heroClips.length;
+        video.loop = true;
+        const playbackRate = index % 2 === 0 ? 0.92 : 0.88;
 
-        const playCurrentClip = () => {
-            const clip = heroClips[clipIndex];
-            assignClipToVideo(video, clip);
-        };
-
-        video.loop = false;
-        video.addEventListener("ended", () => {
-            clipIndex = (clipIndex + wallVideos.length) % heroClips.length;
-            playCurrentClip();
-        });
-
-        playCurrentClip();
+        if (video.readyState >= 2) {
+            playMutedVideo(video, playbackRate);
+        } else {
+            video.addEventListener(
+                "loadeddata",
+                () => {
+                    playMutedVideo(video, playbackRate);
+                },
+                { once: true }
+            );
+        }
     });
 }
 
