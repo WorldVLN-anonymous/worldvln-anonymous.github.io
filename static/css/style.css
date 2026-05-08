@@ -540,6 +540,10 @@ a:hover {
     border-color: rgba(126, 206, 255, 0.34);
 }
 
+.hero-link-static {
+    cursor: default;
+}
+
 .section-tag,
 .feature-label,
 .resource-kicker,

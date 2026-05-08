@@ -35,8 +35,6 @@
                 <li><a href="#overview">Abstract</a></li>
                 <li><a href="#highlights">Highlights</a></li>
                 <li><a href="#videos">Videos</a></li>
-                <li><a href="#resources">Resources</a></li>
-                <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
     </nav>
@@ -103,9 +101,7 @@
                         across both indoor and outdoor environments and deployable on real drones.
                     </p>
                     <div class="hero-links">
-                        <a href="#videos" class="hero-link hero-link-primary">View Videos</a>
-                        <a href="#overview" class="hero-link">Abstract</a>
-                        <a href="#resources" class="hero-link">Anonymous Resources</a>
+                        <span class="hero-link hero-link-primary hero-link-static">Code · Coming soon</span>
                     </div>
                 </div>
             </div>
@@ -128,24 +124,16 @@
                         Aerial vision-language navigation requires agents to follow natural-language instructions through
                         closed-loop perception and action in 3D environments. We argue that aerial VLN can be formulated
                         as a prediction-driven world-action problem: the agent should anticipate latent world evolution and
-                        act according to the predicted consequences.
-                    </p>
-                    <p>
-                        To this end, we propose WorldVLN, the first autoregressive world action model for aerial VLN.
-                        Unlike full-sequence video-generation world models that generate an entire visual clip, WorldVLN
-                        adapts a latent autoregressive video backbone to predict short-horizon world-state transitions and
-                        directly decodes them into executable waypoint actions. After each action segment is executed, newly
-                        received observations are encoded back into the autoregressive context, enabling closed-loop
-                        world-action prediction.
-                    </p>
-                    <p>
-                        We further introduce a two-stage training framework that first grounds the video prior in
-                        instruction-conditioned navigation dynamics and then develops Action-aware GRPO, the first
-                        reinforcement learning method tailored to autoregressive WAMs, to optimize waypoint decisions
-                        through their downstream rollout consequences.
-                    </p>
-                    <p>
-                        On public outdoor and indoor benchmarks, WorldVLN consistently outperforms existing
+                        act according to the predicted consequences. To this end, we propose WorldVLN, the first
+                        autoregressive world action model for aerial VLN. Unlike full-sequence video-generation world
+                        models that generate an entire visual clip, WorldVLN adapts a latent autoregressive video backbone
+                        to predict short-horizon world-state transitions and directly decodes them into executable waypoint
+                        actions. After each action segment is executed, newly received observations are encoded back into
+                        the autoregressive context, enabling closed-loop world-action prediction. We further introduce a
+                        two-stage training framework that first grounds the video prior in instruction-conditioned
+                        navigation dynamics and then develops Action-aware GRPO, the first reinforcement learning method
+                        tailored to autoregressive WAMs, to optimize waypoint decisions through their downstream rollout
+                        consequences. On public outdoor and indoor benchmarks, WorldVLN consistently outperforms existing
                         Vision-Language-Action baselines with 12%+ success-rate gains and larger advantages on challenging
                         cases. It further transfers zero-shot to real drone deployment, suggesting that the proposed
                         WorldVLN offers a promising route for spatial action tasks.
@@ -159,8 +147,7 @@
         <section class="section" id="highlights">
             <div class="container container-narrow section-panel" data-reveal>
                 <div class="section-head">
-                    <p class="section-tag">Highlights</p>
-                    <h2 class="section-title">Visual And Structural Highlights</h2>
+                    <h2 class="section-title">Highlights</h2>
                 </div>
                 <div class="feature-grid">
                     <article class="feature-card" data-reveal data-delay="0">
@@ -188,7 +175,7 @@
             <div class="container container-wide section-panel" data-reveal>
                 <div class="section-head">
                     <p class="section-tag">Videos</p>
-                    <h2 class="section-title">Example Demonstrate</h2>
+                    <h2 class="section-title">Demo</h2>
                 </div>
 
                 <div class="video-group">
@@ -203,46 +190,6 @@
                         <h3>Indoor Case</h3>
                     </div>
                     <div class="video-grid" id="testVideos"></div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-        <section class="section" id="resources">
-            <div class="container container-narrow section-panel" data-reveal>
-                <div class="section-head">
-                    <p class="section-tag">Resources</p>
-                    <h2 class="section-title">Anonymous Resources</h2>
-                </div>
-                <div class="resource-grid">
-                    <div class="resource-card" data-reveal>
-                        <span class="resource-kicker">Repository</span>
-                        <h3>Codebase</h3>
-                        <p>Coming soon</p>
-                    </div>
-                    <div class="resource-card" data-reveal data-delay="80">
-                        <span class="resource-kicker">Weights</span>
-                        <h3>Weights</h3>
-                        <p>Coming soon</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-        <section class="section" id="contact">
-            <div class="container container-narrow section-panel" data-reveal>
-                <div class="section-head">
-                    <p class="section-tag">Contact</p>
-                    <h2 class="section-title">Contact Placeholder</h2>
-                </div>
-                <div class="text-block">
-                    <p>
-                        Contact details are intentionally omitted at this stage to preserve anonymity.
-                        A final public contact channel can be inserted here later once review constraints no longer apply.
-                    </p>
                 </div>
             </div>
         </section>
