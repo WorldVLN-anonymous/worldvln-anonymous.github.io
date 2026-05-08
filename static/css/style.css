@@ -273,6 +273,7 @@ a:hover {
     min-height: 100vh;
     padding: 138px 0 92px;
     overflow: hidden;
+    background: #020613;
     border-bottom: 1px solid rgba(138, 195, 255, 0.08);
 }
 
@@ -283,19 +284,29 @@ a:hover {
     inset: 0;
 }
 
+.hero-stage-media {
+    z-index: 0;
+}
+
+.hero-grid,
+.hero-overlay {
+    z-index: 1;
+}
+
 .hero-grid {
     background:
         linear-gradient(rgba(149, 189, 255, 0.08) 1px, transparent 1px),
         linear-gradient(90deg, rgba(149, 189, 255, 0.08) 1px, transparent 1px);
     background-size: 140px 140px;
     mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.88), transparent 86%);
-    opacity: 0.12;
+    opacity: 0.05;
     animation: grid-shift 30s linear infinite;
 }
 
 .hero-stage-media {
     overflow: hidden;
     pointer-events: none;
+    background: #020613;
 }
 
 .hero-stage-media::after {
@@ -303,22 +314,26 @@ a:hover {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at center, rgba(91, 194, 255, 0.16), transparent 42%),
-        linear-gradient(180deg, rgba(3, 8, 20, 0.04), rgba(3, 8, 20, 0.2));
+        radial-gradient(circle at 50% 36%, rgba(74, 160, 255, 0.16), transparent 38%),
+        linear-gradient(90deg, rgba(2, 6, 19, 0.42), rgba(2, 6, 19, 0.06) 36%, rgba(2, 6, 19, 0.06) 64%, rgba(2, 6, 19, 0.42)),
+        linear-gradient(180deg, rgba(2, 6, 19, 0.28), rgba(2, 6, 19, 0.06) 42%, rgba(2, 6, 19, 0.36));
+    pointer-events: none;
 }
 
 .hero-video-wall {
     position: absolute;
     inset: 0;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 2px;
-    opacity: 0.68;
+    background: rgba(1, 5, 15, 0.68);
+    opacity: 1;
 }
 
 .hero-wall-panel {
     position: relative;
     overflow: hidden;
+    background: #020613;
 }
 
 .hero-wall-panel::after {
@@ -326,7 +341,8 @@ a:hover {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(180deg, rgba(3, 8, 20, 0.16), rgba(3, 8, 20, 0.04) 35%, rgba(3, 8, 20, 0.18)),
+        linear-gradient(180deg, rgba(2, 6, 19, 0.12), rgba(2, 6, 19, 0.02) 38%, rgba(2, 6, 19, 0.14)),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.1), transparent 18%, transparent 82%, rgba(0, 0, 0, 0.1)),
         radial-gradient(circle at center, rgba(109, 180, 255, 0.08), transparent 62%);
     pointer-events: none;
 }
@@ -336,16 +352,17 @@ a:hover {
     height: 100%;
     display: block;
     object-fit: cover;
-    filter: saturate(1.03) brightness(0.92) contrast(1.04);
-    transform: scale(1.04);
-    opacity: 0.96;
+    filter: saturate(1.08) brightness(1.02) contrast(1.08);
+    transform: scale(1.05);
+    opacity: 1;
     transition: opacity 0.4s ease, transform 0.45s ease;
 }
 
 .hero-overlay {
     background:
-        radial-gradient(circle at 50% 28%, rgba(96, 165, 250, 0.1), transparent 34%),
-        linear-gradient(180deg, rgba(3, 8, 20, 0.12) 0%, rgba(3, 8, 20, 0.22) 42%, rgba(3, 8, 20, 0.72) 100%);
+        radial-gradient(circle at 50% 39%, rgba(92, 173, 255, 0.18), transparent 30%),
+        linear-gradient(180deg, rgba(2, 6, 19, 0.36) 0%, rgba(2, 6, 19, 0.14) 34%, rgba(2, 6, 19, 0.42) 76%, rgba(2, 6, 19, 0.72) 100%),
+        linear-gradient(90deg, rgba(2, 6, 19, 0.46), rgba(2, 6, 19, 0.04) 30%, rgba(2, 6, 19, 0.04) 70%, rgba(2, 6, 19, 0.46));
 }
 
 .hero-orb {
@@ -357,7 +374,7 @@ a:hover {
     height: 34rem;
     top: -7rem;
     right: -8rem;
-    background: rgba(87, 174, 255, 0.34);
+    background: rgba(87, 174, 255, 0.12);
 }
 
 .hero-orb-b {
@@ -365,7 +382,7 @@ a:hover {
     height: 24rem;
     left: -8rem;
     top: 16rem;
-    background: rgba(0, 204, 255, 0.24);
+    background: rgba(0, 204, 255, 0.1);
     animation-delay: 3s;
 }
 
@@ -374,13 +391,13 @@ a:hover {
     height: 22rem;
     left: 44%;
     bottom: 8rem;
-    background: rgba(159, 137, 255, 0.22);
+    background: rgba(159, 137, 255, 0.1);
     animation-delay: 6s;
 }
 
 .hero-shell {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -912,6 +929,10 @@ a:hover {
 
     .hero-layout {
         min-height: 340px;
+    }
+
+    .hero-video-wall {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 }
 

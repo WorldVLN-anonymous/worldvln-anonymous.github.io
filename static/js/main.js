@@ -126,11 +126,14 @@ function setupSmoothScroll() {
 
 function playMutedVideo(video, playbackRate) {
     video.muted = true;
+    video.defaultMuted = true;
     video.autoplay = true;
     video.playsInline = true;
+    video.loop = true;
     video.setAttribute("muted", "");
     video.setAttribute("autoplay", "");
     video.setAttribute("playsinline", "");
+    video.setAttribute("loop", "");
     video.playbackRate = playbackRate;
     const playPromise = video.play();
     if (playPromise && typeof playPromise.catch === "function") {
@@ -146,8 +149,8 @@ function setupHeroShowcase() {
     }
 
     wallVideos.forEach((video, index) => {
-        video.loop = true;
         const playbackRate = index % 2 === 0 ? 0.92 : 0.88;
+        video.load();
 
         if (video.readyState >= 2) {
             playMutedVideo(video, playbackRate);
