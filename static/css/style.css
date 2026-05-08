@@ -303,8 +303,8 @@ a:hover {
     position: absolute;
     inset: 0;
     background:
-        radial-gradient(circle at center, rgba(91, 194, 255, 0.22), transparent 38%),
-        linear-gradient(180deg, rgba(3, 8, 20, 0.08), rgba(3, 8, 20, 0.34));
+        radial-gradient(circle at center, rgba(91, 194, 255, 0.16), transparent 42%),
+        linear-gradient(180deg, rgba(3, 8, 20, 0.04), rgba(3, 8, 20, 0.2));
 }
 
 .hero-video-wall {
@@ -313,7 +313,7 @@ a:hover {
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 2px;
-    opacity: 0.44;
+    opacity: 0.68;
 }
 
 .hero-wall-panel {
@@ -326,8 +326,8 @@ a:hover {
     position: absolute;
     inset: 0;
     background:
-        linear-gradient(180deg, rgba(3, 8, 20, 0.28), rgba(3, 8, 20, 0.12) 35%, rgba(3, 8, 20, 0.3)),
-        radial-gradient(circle at center, rgba(109, 180, 255, 0.12), transparent 60%);
+        linear-gradient(180deg, rgba(3, 8, 20, 0.16), rgba(3, 8, 20, 0.04) 35%, rgba(3, 8, 20, 0.18)),
+        radial-gradient(circle at center, rgba(109, 180, 255, 0.08), transparent 62%);
     pointer-events: none;
 }
 
@@ -336,7 +336,7 @@ a:hover {
     height: 100%;
     display: block;
     object-fit: cover;
-    filter: saturate(0.98) brightness(0.74) contrast(1.03);
+    filter: saturate(1.03) brightness(0.92) contrast(1.04);
     transform: scale(1.04);
     opacity: 0.96;
     transition: opacity 0.4s ease, transform 0.45s ease;
@@ -344,8 +344,8 @@ a:hover {
 
 .hero-overlay {
     background:
-        radial-gradient(circle at 50% 28%, rgba(96, 165, 250, 0.14), transparent 32%),
-        linear-gradient(180deg, rgba(3, 8, 20, 0.2) 0%, rgba(3, 8, 20, 0.32) 42%, rgba(3, 8, 20, 0.84) 100%);
+        radial-gradient(circle at 50% 28%, rgba(96, 165, 250, 0.1), transparent 34%),
+        linear-gradient(180deg, rgba(3, 8, 20, 0.12) 0%, rgba(3, 8, 20, 0.22) 42%, rgba(3, 8, 20, 0.72) 100%);
 }
 
 .hero-orb {
