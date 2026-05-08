@@ -57,6 +57,8 @@ const testVideos = [
 function createVideoCard(item, index) {
     const card = document.createElement("article");
     card.className = "video-card";
+    card.setAttribute("data-reveal", "");
+    card.style.setProperty("--reveal-delay", `${Math.min(index * 70, 280)}ms`);
     card.innerHTML = `
         <div class="video-shell">
             <video controls preload="metadata" playsinline>
@@ -122,7 +124,66 @@ function setupSmoothScroll() {
     });
 }
 
+function setupHeroBackgroundVideos() {
+    document.querySelectorAll(".hero-bg-video").forEach((video) => {
+        video.muted = true;
+        const playbackRate = Number(video.dataset.playback || "0.75");
+
+        const tryPlay = () => {
+            video.playbackRate = playbackRate;
+            const playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === "function") {
+                playPromise.catch(() => {});
+            }
+        };
+
+        if (video.readyState >= 2) {
+            tryPlay();
+        } else {
+            video.addEventListener("loadeddata", tryPlay, { once: true });
+        }
+    });
+}
+
+function setupRevealAnimations() {
+    const revealTargets = document.querySelectorAll("[data-reveal]");
+    if (!revealTargets.length) {
+        return;
+    }
+
+    if (!("IntersectionObserver" in window)) {
+        revealTargets.forEach((item) => item.classList.add("revealed"));
+        return;
+    }
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) {
+                    return;
+                }
+
+                const delay = entry.target.dataset.delay;
+                if (delay) {
+                    entry.target.style.setProperty("--reveal-delay", `${delay}ms`);
+                }
+
+                entry.target.classList.add("revealed");
+                observer.unobserve(entry.target);
+            });
+        },
+        {
+            threshold: 0.14,
+            rootMargin: "0px 0px -6% 0px"
+        }
+    );
+
+    revealTargets.forEach((item) => observer.observe(item));
+}
+
 populateVideos("outdoorVideos", outdoorVideos);
 populateVideos("testVideos", testVideos);
 setupNavbar();
 setupSmoothScroll();
+setupHeroBackgroundVideos();
+setupRevealAnimations();

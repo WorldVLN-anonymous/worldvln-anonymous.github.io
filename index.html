@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WorldVLN | Anonymous Project Page</title>
-    <meta name="description" content="Anonymous project page for WorldVLN with overview, highlights, and supplementary videos for review.">
+    <meta name="description" content="Anonymous project page for WorldVLN with animated background, rich motion design, and supplementary videos for review.">
     <meta name="robots" content="noindex,nofollow">
     <meta property="og:title" content="WorldVLN | Anonymous Project Page">
     <meta property="og:description" content="Anonymous project page for WorldVLN with supplementary videos for review.">
@@ -15,9 +15,19 @@
     <link rel="stylesheet" href="static/css/style.css">
 </head>
 <body>
+    <div class="page-lights" aria-hidden="true">
+        <div class="page-light page-light-a"></div>
+        <div class="page-light page-light-b"></div>
+        <div class="page-light page-light-c"></div>
+        <div class="page-noise"></div>
+    </div>
+
     <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="#" class="nav-logo">WorldVLN</a>
+            <a href="#" class="nav-logo">
+                <span class="nav-logo-mark">W</span>
+                <span>WorldVLN</span>
+            </a>
             <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
                 <span></span><span></span><span></span>
             </button>
@@ -31,43 +41,100 @@
         </div>
     </nav>
 
-    <header class="hero">
-        <div class="container">
-            <p class="hero-badge">Anonymous Submission Companion Page</p>
-            <h1 class="hero-title">WorldVLN</h1>
-            <h2 class="hero-subtitle">
-                An anonymous project page for supplement videos, qualitative results,
-                and a compact overview prepared for blind review.
-            </h2>
-            <p class="hero-context">
-                This page intentionally omits author names, affiliations, acknowledgements,
-                and any identity-revealing metadata during the review period.
-            </p>
-            <div class="hero-links">
-                <a href="#videos" class="hero-link">View Videos</a>
-                <a href="https://github.com/WorldVLN-anonymous/worldvln-anonymous.github.io" class="hero-link" target="_blank" rel="noopener noreferrer">Anonymous GitHub</a>
+    <header class="hero" id="top">
+        <div class="hero-orb hero-orb-a" aria-hidden="true"></div>
+        <div class="hero-orb hero-orb-b" aria-hidden="true"></div>
+        <div class="hero-orb hero-orb-c" aria-hidden="true"></div>
+        <div class="hero-grid" aria-hidden="true"></div>
+
+        <div class="hero-video-mosaic" aria-hidden="true">
+            <video class="hero-bg-video" muted loop playsinline preload="metadata" data-playback="0.75">
+                <source src="static/videos/outdoor1.mp4" type="video/mp4">
+            </video>
+            <video class="hero-bg-video" muted loop playsinline preload="metadata" data-playback="0.7">
+                <source src="static/videos/outdoor2.mp4" type="video/mp4">
+            </video>
+            <video class="hero-bg-video" muted loop playsinline preload="metadata" data-playback="0.8">
+                <source src="static/videos/test1.mp4" type="video/mp4">
+            </video>
+            <video class="hero-bg-video" muted loop playsinline preload="metadata" data-playback="0.72">
+                <source src="static/videos/test2.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="hero-overlay" aria-hidden="true"></div>
+
+        <div class="container hero-shell">
+            <div class="hero-copy" data-reveal>
+                <p class="hero-badge">Anonymous Submission Companion Page</p>
+                <h1 class="hero-title">WorldVLN</h1>
+                <h2 class="hero-subtitle">
+                    A richer anonymous project page with dynamic background layers,
+                    cinematic motion, and review-friendly supplementary material.
+                </h2>
+                <p class="hero-context">
+                    This review version intentionally omits author names, affiliations,
+                    institutional logos, acknowledgements, and any direct identity-bearing information.
+                    Textual content can be updated later without changing the visual framework.
+                </p>
+                <div class="hero-links">
+                    <a href="#videos" class="hero-link hero-link-primary">View Videos</a>
+                    <a href="#overview" class="hero-link">Project Overview</a>
+                    <a href="https://github.com/WorldVLN-anonymous/worldvln-anonymous.github.io" class="hero-link" target="_blank" rel="noopener noreferrer">Anonymous GitHub</a>
+                </div>
+            </div>
+
+            <div class="hero-metrics" data-reveal data-delay="120">
+                <article class="metric-card">
+                    <div class="metric-kicker">Mode</div>
+                    <div class="metric-value">Blind Review</div>
+                    <p>Designed to remain polished while preserving anonymity.</p>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-kicker">Focus</div>
+                    <div class="metric-value">Visual Demos</div>
+                    <p>Supplementary videos remain the center of the reviewer experience.</p>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-kicker">Style</div>
+                    <div class="metric-value">Motion Rich</div>
+                    <p>Animated background, layered glow, reveal transitions, and responsive depth.</p>
+                </article>
+                <article class="metric-card">
+                    <div class="metric-kicker">Editing</div>
+                    <div class="metric-value">Easy To Update</div>
+                    <p>The current structure is intentionally easy to replace with final project content later.</p>
+                </article>
+            </div>
+
+            <div class="hero-scroll-cue" aria-hidden="true">
+                <span>Scroll</span>
+                <div class="hero-scroll-mouse"><div></div></div>
             </div>
         </div>
     </header>
 
     <main>
         <section class="section" id="overview">
-            <div class="container container-narrow">
-                <h2 class="section-title">Project Overview</h2>
+            <div class="container container-narrow section-panel" data-reveal>
+                <div class="section-head">
+                    <p class="section-tag">Overview</p>
+                    <h2 class="section-title">Project Overview</h2>
+                </div>
                 <div class="text-block">
                     <p>
-                        <strong>WorldVLN</strong> is presented here as an anonymous research project page for blind review.
-                        The goal of this website is to provide a clean, reviewer-friendly summary of the project and a
-                        centralized location for supplementary qualitative videos.
+                        <strong>WorldVLN</strong> is currently presented as an anonymous research project page for review.
+                        The layout is intentionally structured to support later content revision while already providing a
+                        polished visual identity and a coherent reviewer-facing narrative.
                     </p>
                     <p>
-                        Following the structure of a typical academic project website, the page focuses on the most useful
-                        review-time elements: a concise overview, key characteristics, direct access to demo videos, and
-                        anonymized repository information. Identity-bearing content is intentionally excluded.
+                        This version prioritizes three goals: keep the page anonymous, make supplementary media easy to inspect,
+                        and establish a more memorable presentation through dynamic background layers, atmospheric motion, and
+                        high-contrast visual hierarchy.
                     </p>
                     <div class="callout">
-                        Anonymous review notice: this page keeps only project-essential information online.
-                        Author details, institutional logos, personal profiles, and post-acceptance materials can be added later.
+                        Anonymous review notice: author names, affiliations, institutional marks, private contact details,
+                        and any content that can weaken anonymity are intentionally omitted in this stage.
                     </div>
                 </div>
             </div>
@@ -76,23 +143,26 @@
         <hr class="divider">
 
         <section class="section" id="highlights">
-            <div class="container container-narrow">
-                <h2 class="section-title">Highlights</h2>
+            <div class="container container-narrow section-panel" data-reveal>
+                <div class="section-head">
+                    <p class="section-tag">Highlights</p>
+                    <h2 class="section-title">Visual And Structural Highlights</h2>
+                </div>
                 <div class="feature-grid">
-                    <article class="feature-card">
+                    <article class="feature-card" data-reveal data-delay="0">
                         <div class="feature-label">01</div>
-                        <h3>Anonymous-first presentation</h3>
-                        <p>The page is designed to look polished and complete while avoiding author, lab, and organization exposure during NeurIPS review.</p>
+                        <h3>Animated hero atmosphere</h3>
+                        <p>Layered video mosaic, floating light orbs, and moving grid textures create a more vivid first impression without exposing identity.</p>
                     </article>
-                    <article class="feature-card">
+                    <article class="feature-card" data-reveal data-delay="80">
                         <div class="feature-label">02</div>
-                        <h3>Video-centered evidence</h3>
-                        <p>Qualitative results are surfaced as the core content so reviewers can inspect examples quickly without navigating a complex site.</p>
+                        <h3>Reviewer-friendly scanning</h3>
+                        <p>The structure remains a simple single page so reviewers can quickly move between overview, highlights, demos, and supporting links.</p>
                     </article>
-                    <article class="feature-card">
+                    <article class="feature-card" data-reveal data-delay="160">
                         <div class="feature-label">03</div>
-                        <h3>Lightweight static deployment</h3>
-                        <p>The page is implemented as a simple static GitHub Pages site, making it easy to maintain, mirror, and update after review.</p>
+                        <h3>Placeholder-ready content</h3>
+                        <p>Most text is intentionally generic so you can later replace it with final paper-aligned wording without redesigning the site.</p>
                     </article>
                 </div>
             </div>
@@ -101,25 +171,28 @@
         <hr class="divider">
 
         <section class="section" id="videos">
-            <div class="container container-wide">
-                <h2 class="section-title">Supplementary Videos</h2>
+            <div class="container container-wide section-panel" data-reveal>
+                <div class="section-head">
+                    <p class="section-tag">Videos</p>
+                    <h2 class="section-title">Supplementary Videos</h2>
+                </div>
                 <p class="section-intro">
-                    The examples below are grouped into outdoor scenarios and test scenes. All videos are embedded directly
-                    on the page for quick inspection.
+                    The qualitative videos below are embedded directly in the page. They are currently grouped into outdoor
+                    scenarios and test scenes, and the surrounding text can be revised later to match your final naming scheme.
                 </p>
 
                 <div class="video-group">
-                    <div class="group-header">
+                    <div class="group-header" data-reveal>
                         <h3>Outdoor Scenarios</h3>
-                        <p>Representative samples from outdoor navigation-style environments.</p>
+                        <p>Representative samples currently grouped under an outdoor category.</p>
                     </div>
                     <div class="video-grid" id="outdoorVideos"></div>
                 </div>
 
                 <div class="video-group">
-                    <div class="group-header">
+                    <div class="group-header" data-reveal>
                         <h3>Test Scenes</h3>
-                        <p>Additional qualitative cases that broaden coverage across settings and behaviors.</p>
+                        <p>Additional examples that can later be renamed, regrouped, or expanded.</p>
                     </div>
                     <div class="video-grid" id="testVideos"></div>
                 </div>
@@ -129,23 +202,26 @@
         <hr class="divider">
 
         <section class="section" id="resources">
-            <div class="container container-narrow">
-                <h2 class="section-title">Resources</h2>
+            <div class="container container-narrow section-panel" data-reveal>
+                <div class="section-head">
+                    <p class="section-tag">Resources</p>
+                    <h2 class="section-title">Anonymous Resources</h2>
+                </div>
                 <div class="resource-grid">
-                    <a class="resource-card" href="https://github.com/WorldVLN-anonymous/worldvln-anonymous.github.io" target="_blank" rel="noopener noreferrer">
+                    <a class="resource-card" href="https://github.com/WorldVLN-anonymous/worldvln-anonymous.github.io" target="_blank" rel="noopener noreferrer" data-reveal>
                         <span class="resource-kicker">Repository</span>
                         <h3>Anonymous GitHub Pages Repo</h3>
-                        <p>The current review-time website is hosted in the anonymous public repository.</p>
+                        <p>The review-time website is hosted in the anonymous public repository and can be updated incrementally.</p>
                     </a>
-                    <div class="resource-card">
-                        <span class="resource-kicker">Status</span>
-                        <h3>Review Version</h3>
-                        <p>This site intentionally avoids links that may reveal identity. More materials can be released after the anonymity period ends.</p>
+                    <div class="resource-card" data-reveal data-delay="80">
+                        <span class="resource-kicker">Deployment</span>
+                        <h3>Static And Lightweight</h3>
+                        <p>The page stays lightweight enough for GitHub Pages while still supporting richer visual effects and embedded demos.</p>
                     </div>
-                    <div class="resource-card">
-                        <span class="resource-kicker">Assets</span>
-                        <h3>Embedded Demo Videos</h3>
-                        <p>All copied supplementary videos are stored locally in the site repository for stable GitHub Pages playback.</p>
+                    <div class="resource-card" data-reveal data-delay="160">
+                        <span class="resource-kicker">Revision</span>
+                        <h3>Ready For Final Content</h3>
+                        <p>Section titles, buttons, summaries, and supporting descriptions can all be revised later without changing the overall style system.</p>
                     </div>
                 </div>
             </div>
@@ -154,12 +230,15 @@
         <hr class="divider">
 
         <section class="section" id="contact">
-            <div class="container container-narrow">
-                <h2 class="section-title">Contact</h2>
+            <div class="container container-narrow section-panel" data-reveal>
+                <div class="section-head">
+                    <p class="section-tag">Contact</p>
+                    <h2 class="section-title">Contact Placeholder</h2>
+                </div>
                 <div class="text-block">
                     <p>
-                        To preserve anonymity during review, personal contact information is not listed on this page.
-                        If necessary, communication can be handled through the anonymous repository after review policies permit it.
+                        Contact details are intentionally omitted at this stage to preserve anonymity.
+                        A final public contact channel can be inserted here later once review constraints no longer apply.
                     </p>
                 </div>
             </div>
