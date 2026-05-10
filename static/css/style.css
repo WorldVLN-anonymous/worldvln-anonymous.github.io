@@ -789,6 +789,10 @@ a:hover {
     gap: 20px;
 }
 
+.video-grid-single {
+    grid-template-columns: 1fr;
+}
+
 .video-card {
     padding: 14px;
 }
