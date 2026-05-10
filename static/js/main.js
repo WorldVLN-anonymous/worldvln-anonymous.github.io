@@ -9,7 +9,7 @@ const outdoorVideos = [
     },
     {
         title: "Outdoor Scenario 3",
-        file: "outdoor3.mp4"
+        file: "outdoor5.mp4"
     },
     {
         title: "Outdoor Scenario 4",
@@ -41,6 +41,20 @@ const testVideos = [
     {
         title: "Test Scene 6",
         file: "test6.mp4"
+    }
+];
+
+const uavFlowVideos = [
+    {
+        title: "UAV-Flow 1",
+        file: "uav-flow1.mp4"
+    }
+];
+
+const indoorUavVideos = [
+    {
+        title: "Indoor UAV 1",
+        file: "indooruav.mp4"
     }
 ];
 
@@ -189,6 +203,8 @@ function setupRevealAnimations() {
 
 populateVideos("outdoorVideos", outdoorVideos);
 populateVideos("testVideos", testVideos);
+populateVideos("uavFlowVideos", uavFlowVideos);
+populateVideos("indoorUavVideos", indoorUavVideos);
 setupNavbar();
 setupSmoothScroll();
 setupHeroShowcase();
