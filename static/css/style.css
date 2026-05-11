@@ -348,15 +348,29 @@ a:hover {
     pointer-events: none;
 }
 
+.hero-wall-poster,
 .hero-wall-video {
+    position: absolute;
+    inset: 0;
     width: 100%;
     height: 100%;
     display: block;
     object-fit: cover;
     filter: saturate(1.08) brightness(1.02) contrast(1.08);
     transform: scale(1.05);
-    opacity: 1;
     transition: opacity 0.4s ease, transform 0.45s ease;
+}
+
+.hero-wall-poster {
+    opacity: 1;
+}
+
+.hero-wall-video {
+    opacity: 0;
+}
+
+.hero-wall-panel.preview-ready .hero-wall-video {
+    opacity: 1;
 }
 
 .hero-overlay {
@@ -799,12 +813,16 @@ a:hover {
 
 .video-shell {
     position: relative;
+    display: block;
+    width: 100%;
+    padding: 0;
     margin-bottom: 16px;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 18px;
     overflow: hidden;
     background: rgba(0, 0, 0, 0.22);
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
+    aspect-ratio: 16 / 9;
 }
 
 .video-shell::after {
@@ -816,17 +834,197 @@ a:hover {
     pointer-events: none;
 }
 
-.video-shell video {
+.video-trigger {
+    cursor: pointer;
+}
+
+.video-poster,
+.video-preview-video {
+    position: absolute;
+    inset: 0;
     display: block;
     width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
+    height: 100%;
+    object-fit: cover;
     background: #02060d;
+}
+
+.video-poster {
+    opacity: 1;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.video-preview-slot {
+    position: absolute;
+    inset: 0;
+    display: block;
+}
+
+.video-preview-video {
+    opacity: 0;
+    transition: opacity 0.35s ease;
+}
+
+.video-card.preview-ready .video-preview-video {
+    opacity: 1;
+}
+
+.video-card:hover .video-poster,
+.video-card.preview-ready .video-poster {
+    transform: scale(1.02);
+}
+
+.video-play-button {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 62px;
+    border: 1px solid rgba(211, 239, 255, 0.44);
+    border-radius: 50%;
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04)),
+        rgba(5, 13, 24, 0.56);
+    box-shadow: 0 16px 42px rgba(0, 0, 0, 0.26), 0 0 34px rgba(91, 188, 248, 0.16);
+    backdrop-filter: blur(14px);
+    transform: translate(-50%, -50%);
+    transition: transform 0.22s ease, border-color 0.22s ease, background 0.22s ease;
+}
+
+.video-play-button span {
+    width: 0;
+    height: 0;
+    margin-left: 4px;
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    border-left: 18px solid var(--text);
+}
+
+.video-trigger:hover .video-play-button,
+.video-trigger:focus-visible .video-play-button {
+    border-color: rgba(137, 213, 255, 0.78);
+    background:
+        linear-gradient(180deg, rgba(137, 213, 255, 0.24), rgba(255, 255, 255, 0.05)),
+        rgba(6, 18, 31, 0.72);
+    transform: translate(-50%, -50%) scale(1.05);
+}
+
+.video-trigger:focus-visible {
+    outline: 2px solid rgba(137, 213, 255, 0.62);
+    outline-offset: 4px;
 }
 
 .video-card .video-kicker {
     margin-top: 12px;
     margin-bottom: 0;
+}
+
+.video-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    padding: 28px;
+}
+
+.video-modal[hidden] {
+    display: none;
+}
+
+.video-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    border: 0;
+    background: rgba(2, 7, 16, 0.78);
+    backdrop-filter: blur(14px);
+    cursor: pointer;
+}
+
+.video-modal-dialog {
+    position: relative;
+    z-index: 1;
+    width: min(1120px, 100%);
+    border: 1px solid rgba(151, 204, 255, 0.22);
+    border-radius: 22px;
+    background:
+        linear-gradient(180deg, rgba(15, 29, 48, 0.96), rgba(6, 14, 25, 0.98)),
+        rgba(8, 17, 29, 0.96);
+    box-shadow: 0 34px 100px rgba(0, 0, 0, 0.48);
+    overflow: hidden;
+}
+
+.video-modal-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 16px 18px;
+    border-bottom: 1px solid rgba(145, 194, 247, 0.14);
+}
+
+.video-modal-bar h2 {
+    margin: 0;
+    color: var(--text);
+    font-family: var(--serif);
+    font-size: 1.16rem;
+    font-weight: 600;
+}
+
+.video-modal-close {
+    position: relative;
+    flex: 0 0 auto;
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(155, 205, 255, 0.2);
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.04);
+    cursor: pointer;
+}
+
+.video-modal-close span {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 18px;
+    height: 2px;
+    border-radius: 999px;
+    background: var(--text);
+}
+
+.video-modal-close span:first-child {
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.video-modal-close span:last-child {
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.video-modal-close:hover,
+.video-modal-close:focus-visible {
+    border-color: rgba(137, 213, 255, 0.55);
+    background: rgba(137, 213, 255, 0.12);
+    outline: none;
+}
+
+.video-modal-stage {
+    background: #02060d;
+}
+
+.video-modal-player {
+    display: block;
+    width: 100%;
+    max-height: min(74vh, 720px);
+    aspect-ratio: 16 / 9;
+    background: #02060d;
+}
+
+body.modal-open {
+    overflow: hidden;
 }
 
 [data-reveal] {
