@@ -22,13 +22,14 @@ const videoGroups = {
         createVideoItem("Test Scene 6", "test6.mp4")
     ],
     uavFlowVideos: [
-        createVideoItem("UAV-Flow 1", "uav-flow1.mp4")
+        createVideoItem("UAV-Flow 1", "uav-flow-1.mp4"),
+        createVideoItem("UAV-Flow 2", "uav-flow-2.mp4")
     ],
     indoorUavVideos: [
-        createVideoItem("Indoor UAV 1", "indooruav.mp4")
+        createVideoItem("Indoor UAV 1", "indoor-uav.mp4")
     ],
     inferProcessVideos: [
-        createVideoItem("Infer Process 1", "inferprogress.mp4")
+        createVideoItem("Infer Process 1", "infer-process.mp4")
     ]
 };
 
@@ -39,7 +40,6 @@ function createVideoItem(title, file) {
     return {
         title,
         poster: `static/video-posters/${stem}.webp`,
-        preview: `static/video-previews/${stem}.mp4`,
         full: `static/videos/${file}`
     };
 }
@@ -112,54 +112,54 @@ function createVideoCard(item, index) {
     card.setAttribute("data-reveal", "");
     card.style.setProperty("--reveal-delay", `${Math.min(index * 70, 280)}ms`);
     card.innerHTML = `
-        <button class="video-shell video-trigger" type="button" aria-label="Play ${item.title}">
+        <div class="video-shell is-loading" aria-label="${item.title}">
             <img class="video-poster" src="${item.poster}" alt="" decoding="async">
-            <span class="video-preview-slot" aria-hidden="true"></span>
-            <span class="video-play-button" aria-hidden="true"><span></span></span>
-        </button>
+            <span class="video-loading-mark" aria-hidden="true"></span>
+        </div>
         <div class="video-kicker">Video ${String(index + 1).padStart(2, "0")}</div>
     `;
 
-    card.querySelector(".video-trigger").addEventListener("click", () => {
-        openVideoModal(item);
-    });
-
-    if (!mediaSettings.reduceMotion && !mediaSettings.saveData) {
-        previewQueue.add(() => loadCardPreview(card, item));
-    }
+    previewQueue.add(() => loadInlineVideo(card, item));
 
     return card;
 }
 
-function loadCardPreview(card, item) {
-    if (card.dataset.previewLoaded === "true") {
+function loadInlineVideo(card, item) {
+    if (card.dataset.videoLoaded === "true") {
         return Promise.resolve();
     }
 
-    card.dataset.previewLoaded = "true";
-    const slot = card.querySelector(".video-preview-slot");
+    card.dataset.videoLoaded = "true";
+    const shell = card.querySelector(".video-shell");
 
-    if (!slot) {
+    if (!shell) {
         return Promise.resolve();
     }
 
     return new Promise((resolve) => {
         const video = document.createElement("video");
-        video.className = "video-preview-video";
-        video.muted = true;
+        video.className = "video-inline-player";
+        video.autoplay = true;
+        video.controls = true;
         video.defaultMuted = true;
         video.loop = true;
+        video.muted = true;
         video.playsInline = true;
-        video.preload = "none";
+        video.preload = "metadata";
+        video.setAttribute("autoplay", "");
+        video.setAttribute("loop", "");
         video.setAttribute("muted", "");
         video.setAttribute("playsinline", "");
-        video.setAttribute("loop", "");
 
         video.addEventListener(
             "loadeddata",
             () => {
-                card.classList.add("preview-ready");
-                playAmbientVideo(video);
+                card.classList.add("video-ready");
+                shell.classList.remove("is-loading");
+                const playPromise = video.play();
+                if (playPromise && typeof playPromise.catch === "function") {
+                    playPromise.catch(() => {});
+                }
                 resolve();
             },
             { once: true }
@@ -168,17 +168,16 @@ function loadCardPreview(card, item) {
         video.addEventListener(
             "error",
             () => {
-                card.classList.remove("preview-ready");
-                unregisterAmbientVideo(video);
+                card.classList.add("video-error");
+                shell.classList.remove("is-loading");
                 video.remove();
                 resolve();
             },
             { once: true }
         );
 
-        slot.appendChild(video);
-        registerAmbientVideo(video);
-        video.src = item.preview;
+        shell.appendChild(video);
+        video.src = item.full;
         video.load();
     });
 }
@@ -381,96 +380,6 @@ function loadBackgroundPreview(panel, index) {
     });
 }
 
-function setupVideoModal() {
-    const modal = document.createElement("div");
-    modal.className = "video-modal";
-    modal.setAttribute("hidden", "");
-    modal.setAttribute("role", "dialog");
-    modal.setAttribute("aria-modal", "true");
-    modal.setAttribute("aria-labelledby", "videoModalTitle");
-    modal.innerHTML = `
-        <button class="video-modal-backdrop" type="button" aria-label="Close video"></button>
-        <div class="video-modal-dialog">
-            <div class="video-modal-bar">
-                <h2 id="videoModalTitle"></h2>
-                <button class="video-modal-close" type="button" aria-label="Close video">
-                    <span></span><span></span>
-                </button>
-            </div>
-            <div class="video-modal-stage"></div>
-        </div>
-    `;
-
-    document.body.appendChild(modal);
-
-    modal.querySelector(".video-modal-backdrop").addEventListener("click", closeVideoModal);
-    modal.querySelector(".video-modal-close").addEventListener("click", closeVideoModal);
-
-    document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && modal.classList.contains("active")) {
-            closeVideoModal();
-        }
-    });
-}
-
-function getVideoModal() {
-    return document.querySelector(".video-modal");
-}
-
-function openVideoModal(item) {
-    const modal = getVideoModal();
-    if (!modal) {
-        return;
-    }
-
-    const stage = modal.querySelector(".video-modal-stage");
-    const title = modal.querySelector("#videoModalTitle");
-    const video = document.createElement("video");
-
-    closeVideoModal();
-
-    title.textContent = item.title;
-    video.className = "video-modal-player";
-    video.controls = true;
-    video.autoplay = true;
-    video.playsInline = true;
-    video.preload = "metadata";
-    video.src = item.full;
-
-    stage.replaceChildren(video);
-    modal.removeAttribute("hidden");
-    modal.classList.add("active");
-    document.body.classList.add("modal-open");
-
-    const playPromise = video.play();
-    if (playPromise && typeof playPromise.catch === "function") {
-        playPromise.catch(() => {});
-    }
-
-    modal.querySelector(".video-modal-close").focus({ preventScroll: true });
-}
-
-function closeVideoModal() {
-    const modal = getVideoModal();
-    if (!modal) {
-        return;
-    }
-
-    const stage = modal.querySelector(".video-modal-stage");
-    const video = stage.querySelector("video");
-
-    if (video) {
-        video.pause();
-        video.removeAttribute("src");
-        video.load();
-    }
-
-    stage.replaceChildren();
-    modal.classList.remove("active");
-    modal.setAttribute("hidden", "");
-    document.body.classList.remove("modal-open");
-}
-
 function setupRevealAnimations() {
     const revealTargets = document.querySelectorAll("[data-reveal]");
     if (!revealTargets.length) {
@@ -521,9 +430,14 @@ function setupVisibilityHandling() {
 
 setupNavbar();
 setupSmoothScroll();
-setupVideoModal();
+[
+    "inferProcessVideos",
+    "uavFlowVideos",
+    "indoorUavVideos",
+    "outdoorVideos",
+    "testVideos"
+].forEach((targetId) => populateVideos(targetId, videoGroups[targetId]));
 setupHeroShowcase();
-Object.entries(videoGroups).forEach(([targetId, items]) => populateVideos(targetId, items));
 setupRevealAnimations();
 setupVisibilityHandling();
 

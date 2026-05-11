@@ -13,7 +13,6 @@ DEFAULT_FFMPEG = Path(r"D:\github_cangku\lubo\AutoSlides\resources\ffmpeg-static
 VIDEOS_DIR = ROOT / "static" / "videos"
 BACKGROUND_DIR = ROOT / "static" / "background-videos"
 POSTERS_DIR = ROOT / "static" / "video-posters"
-VIDEO_PREVIEWS_DIR = ROOT / "static" / "video-previews"
 BACKGROUND_PREVIEWS_DIR = ROOT / "static" / "background-previews"
 
 HERO_BACKGROUND_FILES = [
@@ -44,7 +43,7 @@ def find_ffmpeg() -> str:
         return system_ffmpeg
 
     raise RuntimeError(
-        "FFmpeg was not found. Set FFMPEG_PATH or install ffmpeg before generating previews."
+        "FFmpeg was not found. Set FFMPEG_PATH or install ffmpeg before generating video assets."
     )
 
 
@@ -54,7 +53,7 @@ def run_ffmpeg(ffmpeg: str, args: list[str]) -> None:
 
 
 def ensure_dirs() -> None:
-    for directory in (POSTERS_DIR, VIDEO_PREVIEWS_DIR, BACKGROUND_PREVIEWS_DIR):
+    for directory in (POSTERS_DIR, BACKGROUND_PREVIEWS_DIR):
         directory.mkdir(parents=True, exist_ok=True)
 
 
@@ -82,30 +81,6 @@ def create_poster(ffmpeg: str, source: Path, output: Path) -> None:
             "5",
             "-quality",
             "75",
-            str(output),
-        ],
-    )
-
-
-def create_demo_preview(ffmpeg: str, source: Path, output: Path) -> None:
-    run_ffmpeg(
-        ffmpeg,
-        [
-            "-i",
-            str(source),
-            "-an",
-            "-vf",
-            "scale='min(960,iw)':-2,fps=24",
-            "-c:v",
-            "libx264",
-            "-preset",
-            "veryfast",
-            "-crf",
-            "30",
-            "-pix_fmt",
-            "yuv420p",
-            "-movflags",
-            "+faststart",
             str(output),
         ],
     )
@@ -153,8 +128,6 @@ def main() -> int:
         stem = source.stem
         print(f"Demo poster: {source.name}")
         create_poster(ffmpeg, source, POSTERS_DIR / f"{stem}.webp")
-        print(f"Demo preview: {source.name}")
-        create_demo_preview(ffmpeg, source, VIDEO_PREVIEWS_DIR / f"{stem}.mp4")
 
     for source in hero_sources:
         stem = source.stem
@@ -163,7 +136,7 @@ def main() -> int:
         print(f"Background preview: {source.name}")
         create_background_preview(ffmpeg, source, BACKGROUND_PREVIEWS_DIR / f"{stem}.mp4")
 
-    print("Video posters and previews generated.")
+    print("Video posters and background previews generated.")
     return 0
 
 
