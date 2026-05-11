@@ -136,8 +136,34 @@ function loadInlineVideo(card, item) {
         return Promise.resolve();
     }
 
+    if (typeof fetch !== "function" || window.location.protocol === "file:") {
+        return loadInlineVideoDirect(card, shell, item);
+    }
+
+    return fetch(item.full)
+        .then((response) => {
+            if (!response.ok) {
+                throw new Error(`Failed to load ${item.full}`);
+            }
+
+            return response.blob();
+        })
+        .then((blob) => {
+            const source = URL.createObjectURL(blob);
+            return attachInlineVideo(card, shell, source, () => URL.revokeObjectURL(source));
+        })
+        .catch(() => loadInlineVideoDirect(card, shell, item));
+}
+
+function loadInlineVideoDirect(card, shell, item) {
+    return attachInlineVideo(card, shell, item.full);
+}
+
+function attachInlineVideo(card, shell, source, cleanup) {
     return new Promise((resolve) => {
         const video = document.createElement("video");
+        let settled = false;
+
         video.className = "video-inline-player";
         video.autoplay = true;
         video.controls = true;
@@ -145,39 +171,48 @@ function loadInlineVideo(card, item) {
         video.loop = true;
         video.muted = true;
         video.playsInline = true;
-        video.preload = "metadata";
+        video.preload = "auto";
         video.setAttribute("autoplay", "");
         video.setAttribute("loop", "");
         video.setAttribute("muted", "");
         video.setAttribute("playsinline", "");
 
-        video.addEventListener(
-            "loadeddata",
-            () => {
-                card.classList.add("video-ready");
-                shell.classList.remove("is-loading");
-                const playPromise = video.play();
-                if (playPromise && typeof playPromise.catch === "function") {
-                    playPromise.catch(() => {});
-                }
-                resolve();
-            },
-            { once: true }
-        );
+        function markReady() {
+            if (settled) {
+                return;
+            }
 
-        video.addEventListener(
-            "error",
-            () => {
-                card.classList.add("video-error");
-                shell.classList.remove("is-loading");
-                video.remove();
-                resolve();
-            },
-            { once: true }
-        );
+            settled = true;
+            card.classList.add("video-ready");
+            shell.classList.remove("is-loading");
+            const playPromise = video.play();
+            if (playPromise && typeof playPromise.catch === "function") {
+                playPromise.catch(() => {});
+            }
+            resolve();
+        }
+
+        function markError() {
+            if (settled) {
+                return;
+            }
+
+            settled = true;
+            card.classList.add("video-error");
+            shell.classList.remove("is-loading");
+            if (typeof cleanup === "function") {
+                cleanup();
+            }
+            video.remove();
+            resolve();
+        }
+
+        video.addEventListener("loadeddata", markReady, { once: true });
+        video.addEventListener("canplaythrough", markReady, { once: true });
+        video.addEventListener("error", markError, { once: true });
 
         shell.appendChild(video);
-        video.src = item.full;
+        video.src = source;
         video.load();
     });
 }
