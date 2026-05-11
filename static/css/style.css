@@ -853,6 +853,7 @@ a:hover {
     font-size: 0.76rem;
     letter-spacing: 0.06em;
     text-transform: uppercase;
+    text-align: center;
 }
 
 .footer .container-narrow p + p {

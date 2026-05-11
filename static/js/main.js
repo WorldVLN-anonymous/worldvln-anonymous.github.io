@@ -58,6 +58,13 @@ const indoorUavVideos = [
     }
 ];
 
+const inferProcessVideos = [
+    {
+        title: "Infer Process 1",
+        file: "inferprogress.mp4"
+    }
+];
+
 function createVideoCard(item, index) {
     const card = document.createElement("article");
     card.className = "video-card";
@@ -205,6 +212,7 @@ populateVideos("outdoorVideos", outdoorVideos);
 populateVideos("testVideos", testVideos);
 populateVideos("uavFlowVideos", uavFlowVideos);
 populateVideos("indoorUavVideos", indoorUavVideos);
+populateVideos("inferProcessVideos", inferProcessVideos);
 setupNavbar();
 setupSmoothScroll();
 setupHeroShowcase();
