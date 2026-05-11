@@ -430,6 +430,7 @@ function setupVisibilityHandling() {
 
 setupNavbar();
 setupSmoothScroll();
+setupHeroShowcase();
 [
     "inferProcessVideos",
     "uavFlowVideos",
@@ -437,7 +438,6 @@ setupSmoothScroll();
     "outdoorVideos",
     "testVideos"
 ].forEach((targetId) => populateVideos(targetId, videoGroups[targetId]));
-setupHeroShowcase();
 setupRevealAnimations();
 setupVisibilityHandling();
 
