@@ -32,9 +32,13 @@
                 <span></span><span></span><span></span>
             </button>
             <ul class="nav-links" id="navLinks">
-                <li><a href="#overview">Abstract</a></li>
                 <li><a href="#highlights">Highlights</a></li>
-                <li><a href="#videos">Videos</a></li>
+                <li><a href="#overview">Abstract</a></li>
+                <li><a href="#videos">Demo</a></li>
+                <li><a href="#infer-process">World-Action</a></li>
+                <li><a href="#training-framework">Training</a></li>
+                <li><a href="#quantitative-results">Results</a></li>
+                <li><a href="#training-analysis">Analysis</a></li>
             </ul>
         </div>
     </nav>
@@ -81,8 +85,7 @@
                 <div class="hero-copy" data-reveal>
                     <h1 class="hero-title">WorldVLN</h1>
                     <p class="hero-context">
-                        The first autoregressive world action model for drone VLN, capable of operating
-                        across both indoor and outdoor environments and deployable on real drones.
+                        Autoregressive World Action Model for Aerial Vision-Language Navigation
                     </p>
                     <div class="hero-links">
                         <a href="https://anonymous.4open.science/r/WorldVLN-F157/README.md" class="hero-link hero-link-primary" target="_blank" rel="noopener noreferrer">Code</a>
@@ -98,6 +101,33 @@
     </header>
 
     <main>
+        <section class="section" id="highlights">
+            <div class="container container-narrow section-panel" data-reveal>
+                <div class="section-head">
+                    <h2 class="section-title">Highlights</h2>
+                </div>
+                <div class="feature-grid">
+                    <article class="feature-card" data-reveal data-delay="0">
+                        <div class="feature-label">01</div>
+                        <h3>Autoregressive WAM for Aerial VLN</h3>
+                        <p>We propose the first autoregressive world action model for aerial VLN, grounded in a closed-loop observe-act-update process.</p>
+                    </article>
+                    <article class="feature-card" data-reveal data-delay="80">
+                        <div class="feature-label">02</div>
+                        <h3>Action-aware GRPO</h3>
+                        <p>We introduce the first action-aware GRPO to boost the action ability of autoregressive WAMs.</p>
+                    </article>
+                    <article class="feature-card" data-reveal data-delay="160">
+                        <div class="feature-label">03</div>
+                        <h3>SOTA and Real-World Deployment</h3>
+                        <p>WorldVLN achieves strong performance on indoor and outdoor benchmarks and transfers to real-world drone deployment.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
         <section class="section" id="overview">
             <div class="container container-narrow section-panel" data-reveal>
                 <div class="section-head">
@@ -122,46 +152,6 @@
                         cases. It further transfers zero-shot to real drone deployment, suggesting that the proposed
                         WorldVLN offers a promising route for spatial action tasks.
                     </p>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-        <section class="section" id="highlights">
-            <div class="container container-narrow section-panel" data-reveal>
-                <div class="section-head">
-                    <h2 class="section-title">Highlights</h2>
-                </div>
-                <div class="feature-grid">
-                    <article class="feature-card" data-reveal data-delay="0">
-                        <div class="feature-label">01</div>
-                        <h3>Autoregressive WAM For Aerial VLN</h3>
-                        <p>We propose the first autoregressive WAM for aerial VLN with closed-loop world-action prediction.</p>
-                    </article>
-                    <article class="feature-card" data-reveal data-delay="80">
-                        <div class="feature-label">02</div>
-                        <h3>Action-aware GRPO</h3>
-                        <p>We introduce Action-aware GRPO to align autoregressive WAMs with navigation outcomes.</p>
-                    </article>
-                    <article class="feature-card" data-reveal data-delay="160">
-                        <div class="feature-label">03</div>
-                        <h3>SOTA And Real-world Transfer</h3>
-                        <p>WorldVLN achieves SOTA-level performance on indoor and outdoor benchmarks, with zero-shot transfer to real-world drones.</p>
-                    </article>
-                </div>
-            </div>
-        </section>
-
-        <hr class="divider">
-
-        <section class="section" id="infer-process">
-            <div class="container container-wide section-panel" data-reveal>
-                <div class="section-head">
-                    <h2 class="section-title">Autoregressive World-Action</h2>
-                </div>
-                <div class="video-group">
-                    <div class="video-grid video-grid-single" id="inferProcessVideos"></div>
                 </div>
             </div>
         </section>
@@ -201,6 +191,71 @@
                         <h3>Indoor Simulation (IndoorUAV)</h3>
                     </div>
                     <div class="video-grid video-grid-single" id="indoorUavVideos"></div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section class="section" id="infer-process">
+            <div class="container container-wide section-panel" data-reveal>
+                <div class="section-head">
+                    <h2 class="section-title">Autoregressive World-Action</h2>
+                    <p class="section-intro">WorldVLN navigates by implicitly predicting what will happen next, acting on it, and continuously correcting itself with real visual feedback.</p>
+                </div>
+                <div class="video-group">
+                    <div class="video-grid video-grid-single" id="inferProcessVideos"></div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section class="section" id="training-framework">
+            <div class="container container-wide section-panel" data-reveal>
+                <div class="section-head">
+                    <h2 class="section-title">Two-Stage Training Framework</h2>
+                    <p class="section-intro">We train the autoregressive WAM in two stages. Stage 1 supervises the latent autoregressive backbone with instruction-video pairs and the action decoder with video-trajectory pairs. Stage 2 samples multiple rollouts, assigns segment-level rewards from trajectory accuracy, task progress, and reference-policy regularization with temporal decay weighting, and updates WorldVLN through Action-aware GRPO.</p>
+                </div>
+                <div class="figure-block">
+                    <img class="section-figure" src="static/photos/training.png" alt="Two-stage training framework for WorldVLN" loading="lazy" decoding="async">
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section class="section" id="quantitative-results">
+            <div class="container container-wide section-panel" data-reveal>
+                <div class="section-head">
+                    <h2 class="section-title">Quantitative Results</h2>
+                    <p class="section-intro">The quantitative results demonstrate the strong performance of WorldVLN across both outdoor and indoor UAV benchmarks.</p>
+                </div>
+                <div class="figure-grid">
+                    <div class="figure-card">
+                        <img class="section-figure" src="static/photos/figure1.png" alt="Quantitative results on outdoor UAV benchmarks" loading="lazy" decoding="async">
+                    </div>
+                    <div class="figure-card">
+                        <img class="section-figure" src="static/photos/figure2.png" alt="Quantitative results on indoor UAV benchmarks" loading="lazy" decoding="async">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <section class="section" id="training-analysis">
+            <div class="container container-wide section-panel" data-reveal>
+                <div class="section-head">
+                    <h2 class="section-title">Training Analysis</h2>
+                    <p class="section-intro">We plot the training curves of the proposed model:</p>
+                </div>
+                <ul class="section-list">
+                    <li>Compared with VLA baselines, our method achieves faster performance improvements under the same number of training steps, demonstrating the stronger learning efficiency of WAM.</li>
+                    <li>Action-aware GRPO further improves performance beyond SFT, and qualitative examples indicate that it more directly enhances action execution.</li>
+                </ul>
+                <div class="figure-block">
+                    <img class="section-figure" src="static/photos/training_ablation.png" alt="Training analysis curves for WorldVLN" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
